@@ -25,6 +25,10 @@ const build = (process.env.GITHUB_SHA ?? 'local').slice(0, 7);
       .catch((e) => { latestCss = 'fetch failed'; });
     let errors = [];
     addEventListener('error', (e) => errors.push(String(e.message)));
+    const probe = document.createElement('div');
+    probe.style.cssText = 'position:fixed;visibility:hidden;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)';
+    document.body.appendChild(probe);
+    const inset = (w) => getComputedStyle(probe)['padding' + (w === 'top' ? 'Top' : 'Bottom')];
     const draw = () => {
       const r = document.documentElement;
       const max = r.scrollHeight - innerHeight;
@@ -43,6 +47,11 @@ const build = (process.env.GITHUB_SHA ?? 'local').slice(0, 7);
         'nav overlay opacity: ' + navB.opacity,
         'scroll-timeline support: ' + CSS.supports('animation-timeline: scroll()'),
         'reduced motion: ' + matchMedia('(prefers-reduced-motion: reduce)').matches,
+        'viewport meta: ' + document.querySelector('meta[name=viewport]').content,
+        'safe-area top/bottom: ' + inset('top') + ' / ' + inset('bottom'),
+        'nav-bar: top=' + Math.round(document.querySelector('.nav-bar').getBoundingClientRect().top) + ' height=' + Math.round(document.querySelector('.nav-bar').getBoundingClientRect().height) + ' padTop=' + getComputedStyle(document.querySelector('.nav-bar')).paddingTop,
+        'innerHeight ' + innerHeight + '  screen ' + screen.height + '  visualViewport ' + Math.round(visualViewport.height),
+        'page loaded: ' + new Date(performance.timeOrigin).toLocaleTimeString() + (performance.getEntriesByType('navigation')[0] ? '  (' + performance.getEntriesByType('navigation')[0].transferSize + ' bytes transferred)' : ''),
         'errors: ' + (errors.join(' | ') || 'none'),
         navigator.userAgent.slice(0, 90),
       ].join('\n');
