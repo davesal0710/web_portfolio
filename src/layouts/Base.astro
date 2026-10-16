@@ -88,23 +88,17 @@ const tabs = [
         });
       });
 
-      if (home) {
-        const ids = ['intro', 'work', 'about', 'contact'];
-        const sections = ids.map((id) => document.getElementById(id === 'intro' ? 'top' : id));
-        const onScroll = () => {
-          const atBottom = innerHeight + scrollY >= document.documentElement.scrollHeight - 4;
-          let current = 'intro';
-          if (atBottom) current = 'contact';
-          else {
-            const line = scrollY + innerHeight * 0.35;
-            sections.forEach((s, i) => {
-              if (i > 0 && s && s.offsetTop <= line) current = ids[i];
-            });
-          }
-          if (current !== active()) select(current);
-        };
-        addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
+      // Scroll-spy without reading layout on every scroll: a thin band at 35% of the viewport.
+      if (home && 'IntersectionObserver' in window) {
+        const spy = new IntersectionObserver((es) => {
+          es.forEach((e) => { if (e.isIntersecting) select(e.target.id); });
+        }, { rootMargin: '-35% 0px -60% 0px' });
+        ['intro', 'work', 'about', 'contact'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) spy.observe(el);
+        });
+        const foot = document.querySelector('footer');
+        if (foot) new IntersectionObserver((es) => { if (es[0].isIntersecting) select('contact'); }).observe(foot);
       }
     </script>
   </body>
