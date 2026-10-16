@@ -18,7 +18,7 @@ import hackathon from '../assets/computershare-hackathon.jpg';
     <section class="hero" id="intro">
 <div class="col">
       <div class="who" data-reveal>
-        <Image src={headshot} alt="" width={56} height={56} densities={[1, 2]} />
+        <Image src={headshot} alt="" width={56} height={56} densities={[1, 2]} loading="eager" />
         <p>
           <strong>David Salazar</strong>
           New York · open to analyst, implementation and automation roles
@@ -42,8 +42,8 @@ import hackathon from '../assets/computershare-hackathon.jpg';
           <div data-pane data-label="Note">
             <span class="label">What a user might say (a working persona, not an interview)</span>
             <p>
-              “My whole routine lives in my notes app: bench 135 lb for 8, dumbbell curls 27.5 lb
-              for 12. Every tracker makes me retype it, and I'm afraid I'll lose my numbers.”
+              “My whole routine lives in my notes app: bench 135&nbsp;lb for 8, dumbbell curls 27.5&nbsp;lb
+              for 12. Every tracker makes me retype it, and I’m afraid I’ll lose my numbers.”
             </p>
           </div>
           <div data-pane data-label="User story">
@@ -57,7 +57,7 @@ import hackathon from '../assets/computershare-hackathon.jpg';
             <span class="label">How we know it works</span>
             <ul>
               <li>
-                Given pasted text with decimal weights like 27.5 lb, when it is imported, then
+                Given pasted text with decimal weights like 27.5&nbsp;lb, when it is imported, then
                 every value is kept exactly as written.
               </li>
               <li>
@@ -87,7 +87,7 @@ import hackathon from '../assets/computershare-hackathon.jpg';
           make them retype everything into rigid templates. I defined the problem, three working
           personas and the requirements: paste a routine in and review it before it replaces
           anything, log sets without a signal, and get progression advice that says “hold” when the
-          history doesn't support adding weight.
+          history doesn’t support adding weight.
         </p>
         <p data-reveal>
           I owned the product. AI coding assistants (Codex and Claude Code) wrote the code under my
@@ -97,7 +97,7 @@ import hackathon from '../assets/computershare-hackathon.jpg';
           <figure>
             <Image
               src={calendar}
-              alt="Tetsu's month calendar on a phone, with push, pull and legs days marked"
+              alt="Tetsu’s month calendar on a phone, with push, pull and legs days marked"
               widths={[160, 320]}
               sizes="(min-width: 40rem) 11rem, 30vw"
             />
@@ -106,7 +106,7 @@ import hackathon from '../assets/computershare-hackathon.jpg';
           <figure>
             <Image
               src={progress}
-              alt="Tetsu's progress tab on a phone, showing history and advice for an exercise"
+              alt="Tetsu’s progress tab on a phone, showing history and advice for an exercise"
               widths={[160, 320]}
               sizes="(min-width: 40rem) 11rem, 30vw"
             />
@@ -115,7 +115,7 @@ import hackathon from '../assets/computershare-hackathon.jpg';
           <figure>
             <Image
               src={aiImport}
-              alt="Tetsu's import screen on a phone, where a pasted routine is reviewed before it is saved"
+              alt="Tetsu’s import screen on a phone, where a pasted routine is reviewed before it is saved"
               widths={[160, 320]}
               sizes="(min-width: 40rem) 11rem, 30vw"
             />
@@ -126,7 +126,7 @@ import hackathon from '../assets/computershare-hackathon.jpg';
         <ul data-reveal>
           <li>75 automated tests and 61 browser test cases.</li>
           <li>
-            The AI import tries a local parser first, caps usage, checks the AI's output and always
+            The AI import tries a local parser first, caps usage, checks the AI’s output and always
             ends on a review screen.
           </li>
           <li>
@@ -134,8 +134,8 @@ import hackathon from '../assets/computershare-hackathon.jpg';
             live app. They are fixed and covered by tests.
           </li>
           <li>
-            Usage analytics and a PostHog dashboard are set up. Real usage numbers aren't in yet, so
-            I'm not quoting any.
+            Usage analytics and a PostHog dashboard are set up. Real usage numbers aren’t in yet, so
+            I’m not quoting any.
           </li>
         </ul>
         <div class="actions" data-reveal style="margin-top:0">
@@ -149,7 +149,7 @@ import hackathon from '../assets/computershare-hackathon.jpg';
         <p class="meta" data-reveal>Area Manager Intern, summer 2025</p>
         <p data-reveal>
           Alarm and downtime data showed that one unreliable loop was behind most of an inbound scan
-          system's stops. I proposed rerouting to two steadier lines and removing a manual role,
+          system’s stops. I proposed rerouting to two steadier lines and removing a manual role,
           with a projected 10 to 15% throughput gain.
         </p>
         <a class="textlink" href="/work/amazon/" data-reveal>Read the breakdown</a>
@@ -194,7 +194,7 @@ import hackathon from '../assets/computershare-hackathon.jpg';
           widths={[480, 800, 1100]}
           sizes="(min-width: 64rem) 34rem, 92vw"
         />
-        <figcaption>Supporting Computershare's Copilot Hackathon for FDM.</figcaption>
+        <figcaption>Supporting Computershare’s Copilot Hackathon for FDM.</figcaption>
       </figure>
       <dl class="facts" data-reveal>
         <div>
@@ -218,7 +218,7 @@ import hackathon from '../assets/computershare-hackathon.jpg';
           <div class="head"><span>Change &amp; Transformation Consultant, FDM Group</span><span class="when">Aug 2026 to now</span></div>
           <p>
             An eight-week consulting readiness program covering business analysis, Agile/Scrum, SAFe and
-            Power BI. I supported Computershare's Copilot hackathon, troubleshooting Copilot Studio
+            Power BI. I supported Computershare’s Copilot hackathon, troubleshooting Copilot Studio
             workflows and building Power Automate workflows for participants.</p>
         </li>
         <li data-reveal>
@@ -276,8 +276,8 @@ import hackathon from '../assets/computershare-hackathon.jpg';
 <div class="col">
       <h2 data-reveal>contact</h2>
       <p class="statement" data-reveal>
-        I'm looking for business analysis, implementation and workflow automation roles, including AI
-        workflow work. If you have a messy problem, I'd like to hear about it.
+        I’m looking for business analysis, implementation and workflow automation roles, including AI
+        workflow work. If you have a messy problem, I’d like to hear about it.
       </p>
       <div class="contact" data-reveal>
         <Image
@@ -289,8 +289,8 @@ import hackathon from '../assets/computershare-hackathon.jpg';
         />
         <div>
           <p style="margin:0">
-            <a class="big" href="mailto:davesal0710@gmail.com">davesal0710@gmail.com</a><br />
-            <a class="big" href="https://www.linkedin.com/in/davidsval">linkedin.com/in/davidsval</a><br />
+            <a class="big" href="mailto:davesal0710@gmail.com">davesal0710@gmail.com</a>
+            <a class="big" href="https://www.linkedin.com/in/davidsval">linkedin.com/in/davidsval</a>
             <a class="big" href="/David_Salazar_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
           </p>
           <p class="muted small" style="margin-top:0.75rem">New York</p>

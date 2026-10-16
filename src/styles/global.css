@@ -92,6 +92,7 @@ body {
 .skip {
   position: absolute;
   left: 1rem;
+  max-width: calc(100% - 2rem);
   top: -4rem;
   background: var(--ink);
   color: var(--bg);
@@ -500,9 +501,14 @@ h3.group {
 }
 .contact {
   display: grid;
-  grid-template-columns: 6rem 1fr;
+  grid-template-columns: 6rem minmax(0, 1fr);
   gap: 1.25rem;
   align-items: start;
+}
+@media (max-width: 22rem) {
+  .contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 .contact img {
   width: 6rem;
@@ -525,8 +531,11 @@ h3.group {
   margin: 0 0 0.6rem;
 }
 .contact .big {
-  display: inline-block;
-  padding-block: 0.3rem;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  padding-block: 0.5rem;
+  min-height: 2.75rem;
   font-size: var(--step-lead);
   letter-spacing: -0.02em;
 }
@@ -1023,13 +1032,13 @@ details.fold .fold-body {
   }
   .case section .col > :not(h2) {
     grid-column: 2;
-    max-width: 44rem;
+    max-width: 38rem;
   }
   .case section .col:has(details) {
     display: block;
   }
   .case section .col:has(details) > details {
-    max-width: 44rem;
+    max-width: 38rem;
     margin-left: calc(13rem + 3rem);
   }
 }
@@ -1233,7 +1242,8 @@ h3.group {
 h1,
 h2,
 h3,
-.lede {
+.lede,
+.statement {
   overflow-wrap: anywhere;
 }
 .case-head h1 {
@@ -1262,6 +1272,8 @@ h3,
   flex-shrink: 0;
 }
 .hero .who p {
+  min-width: 0;
+  overflow-wrap: anywhere;
   margin: 0;
   color: var(--muted);
   font-size: var(--step-small);
@@ -1399,9 +1411,15 @@ html {
   margin-top: 0.6rem;
   line-height: 1.35;
 }
-.demo-gif .btn {
+.gif-toggle {
+  display: block;
+  width: 100%;
+  padding: 0;
   border: 0;
-  font: inherit;
-  font-weight: 500;
+  background: none;
   cursor: pointer;
+  border-radius: var(--radius-lg);
+}
+.demo-gif img {
+  margin-bottom: 0;
 }

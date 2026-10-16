@@ -96,23 +96,23 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
       </ul>
       <div class="shots five" data-reveal>
         <figure>
-          <Image src={calendar} alt="Tetsu's month calendar on a phone" {...shot} />
+          <Image src={calendar} alt="Tetsu’s month calendar on a phone" {...shot} />
           <figcaption>Calendar</figcaption>
         </figure>
         <figure>
-          <Image src={aiImport} alt="Tetsu's import screen, where a pasted routine is reviewed before saving" {...shot} />
+          <Image src={aiImport} alt="Tetsu’s import screen, where a pasted routine is reviewed before saving" {...shot} />
           <figcaption>Import and review</figcaption>
         </figure>
         <figure>
-          <Image src={progress} alt="Tetsu's progress tab, with history and advice for an exercise" {...shot} />
+          <Image src={progress} alt="Tetsu’s progress tab, with history and advice for an exercise" {...shot} />
           <figcaption>Progress and advice</figcaption>
         </figure>
         <figure>
-          <Image src={timer} alt="Tetsu's workout screen with the rest timer" {...shot} />
+          <Image src={timer} alt="Tetsu’s workout screen with the rest timer" {...shot} />
           <figcaption>Workout and rest timer</figcaption>
         </figure>
         <figure>
-          <Image src={restore} alt="Tetsu's backup restore screen, showing a summary of the file and a choice between a safe merge and a full replace" {...shot} />
+          <Image src={restore} alt="Tetsu’s backup restore screen, showing a summary of the file and a choice between a safe merge and a full replace" {...shot} />
           <figcaption>Backup and restore</figcaption>
         </figure>
       </div>
@@ -129,28 +129,29 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
       </p>
       <ol data-reveal>
         <li>The user pastes a routine, up to 12,000 characters.</li>
-        <li>A local parser reads the common shapes first, so common formats don't need the AI.</li>
+        <li>A local parser reads the common shapes first, so common formats don’t need the AI.</li>
         <li>
           Harder text goes to Gemini through a server I control. The key stays on the server, and
           the app tells the user their pasted text leaves the device.
         </li>
         <li>
           The result is checked on the server and again in the browser: at most 7 days and 30
-          exercises per day, bounded sets and text, and any field I didn't ask for is dropped.
+          exercises per day, bounded sets and text, and any field I didn’t ask for is dropped.
         </li>
         <li>The user sees a review screen. Nothing replaces the current plan until they confirm.</li>
       </ol>
       <figure class="demo-gif" data-reveal>
-        <img
-          src="/tetsu-import.gif"
-          width="320"
-          height="696"
-          alt="Tetsu's import screen: a pasted routine is organized, then shown on a review screen with its weights intact, before anything is replaced"
-          loading="lazy"
-          data-poster="/tetsu-import-poster.png"
-        />
-        <button type="button" class="btn" hidden data-play>Play the import</button>
-        <figcaption>A made-up routine, pasted, organized and reviewed. Waiting time is shortened.</figcaption>
+        <button type="button" class="gif-toggle" aria-pressed="false" aria-label="Import clip. Press to pause or play.">
+          <img
+            src="/tetsu-import.gif"
+            width="320"
+            height="696"
+            alt="Tetsu’s import screen: a pasted routine is organized, then shown on a review screen with its weights intact, before anything is replaced"
+            loading="lazy"
+            data-poster="/tetsu-import-poster.png"
+          />
+        </button>
+        <figcaption>A made-up routine, pasted, organized and reviewed. Waiting time is shortened. Tap the clip to pause.</figcaption>
       </figure>
       <div class="runin">
         <p data-reveal>
@@ -166,7 +167,7 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
           text, so the AI success rate can be tracked once there is real usage.
         </p>
         <p data-reveal>
-          <strong>Tested without the AI.</strong> The tests for the import and the proxy's security
+          <strong>Tested without the AI.</strong> The tests for the import and the proxy’s security
           rules never call the real model, so they run the same every time.
         </p>
       </div>
@@ -239,7 +240,7 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
           output is validated on the server and in the browser, and unknown fields are discarded.
         </li>
         <li>
-          Trust boundaries: the server holds the key, requests can't supply their own, origins are
+          Trust boundaries: the server holds the key, requests can’t supply their own, origins are
           allowlisted exactly, and the production server serves only built assets.
         </li>
         <li>
@@ -264,7 +265,7 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
 <div class="fold-body">
       <p data-reveal>
         I instrumented the app to answer product questions, then built the dashboard myself in
-        PostHog's free tier. Events cover app opened, onboarding completed, workout completed,
+        PostHog’s free tier. Events cover app opened, onboarding completed, workout completed,
         routine parsed (with AI success or failure), backup exported, app installed and progress
         viewed. The dashboard shows daily active users, an open to onboarded to first-workout
         funnel, retention, AI-parse success rate, workouts per week and feature usage.
@@ -283,7 +284,7 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
       <div class="panel" data-reveal>
         <p>
           <strong>Usage results are not available yet.</strong> Development and test traffic was
-          excluded on purpose, and the dashboard counts real usage from October 15, 2026. I'll add
+          excluded on purpose, and the dashboard counts real usage from October 15, 2026. I’ll add
           figures here when there are real ones.
         </p>
       </div>
@@ -300,7 +301,7 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
         partial sessions, plateaus, declines, outliers, kg and lb conversion, edited prescriptions
         and bodyweight exercises. It found three real defects: a rounding error that disagreed with
         the advice text (1.25&nbsp;kg shown as 1.3), forecast points drawn for exercises where
-        forecasting isn't available, and advice that prescribed an average load nobody had
+        forecasting isn’t available, and advice that prescribed an average load nobody had
         actually lifted. All three are fixed and covered by tests.
       </p>
       <p data-reveal>
@@ -317,7 +318,7 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
 
     <section class="band">
 <div class="col">
-      <h2 data-reveal>What I'd do next</h2>
+      <h2 data-reveal>What I’d do next</h2>
       <p data-reveal>
         Shared rate limiting if usage grows beyond one instance, optional sign-in for cross-device
         sync, set-level analytics, and a decision on whether default-on analytics should become
@@ -355,20 +356,21 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
     </section>
   </div>
   <script>
-    // The clip plays on its own. People who ask for reduced motion get a still image and a Play button.
-    const fig = document.querySelector('.demo-gif');
-    const btn = fig?.querySelector<HTMLButtonElement>('[data-play]');
-    const img = fig?.querySelector<HTMLImageElement>('img');
-    if (btn && img && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // The clip plays on its own and a tap pauses it. People who ask for reduced motion start paused.
+    const toggle = document.querySelector<HTMLButtonElement>('.gif-toggle');
+    const img = toggle?.querySelector<HTMLImageElement>('img');
+    if (toggle && img) {
       const gif = img.getAttribute('src') ?? '';
       const poster = img.dataset.poster ?? '';
-      let playing = false;
-      img.src = poster;
-      btn.hidden = false;
-      btn.addEventListener('click', () => {
-        playing = !playing;
+      let playing = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const render = () => {
         img.src = playing ? gif + '?t=' + Date.now() : poster;
-        btn.textContent = playing ? 'Stop' : 'Play the import';
+        toggle.setAttribute('aria-pressed', String(!playing));
+      };
+      if (!playing) render();
+      toggle.addEventListener('click', () => {
+        playing = !playing;
+        render();
       });
     }
   </script>
