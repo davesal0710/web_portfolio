@@ -1746,6 +1746,7 @@ body {
 }
 .hero-shot {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   gap: 1rem;
   margin-top: 2rem;
@@ -1761,6 +1762,8 @@ body {
   background: var(--surface);
 }
 .hero-shot span {
+  flex: 1 1 9rem;
+  min-width: 0;
   max-width: 15rem;
   color: var(--muted);
   font-size: var(--step-small);
