@@ -1,0 +1,54 @@
+---
+import Base from '../../layouts/Base.astro';
+// Diagnostic page for checking what a phone browser actually received. Not linked anywhere; noindex.
+const build = (process.env.GITHUB_SHA ?? 'local').slice(0, 7);
+---
+
+<Base title="Debug · David Salazar" description="Diagnostics" noindex>
+  <section>
+    <div class="col">
+      <h1>Debug</h1>
+      <p>Scroll to the bottom. The box at the lower left shows what this browser received and how it is painting the page.</p>
+      <p>Build <strong id="build">{build}</strong></p>
+      <div style="height: 2400px"></div>
+      <p>End of page.</p>
+    </div>
+  </section>
+  <pre id="dbg" style="position:fixed;left:8px;bottom:8px;right:8px;margin:0;padding:8px 10px;background:rgba(255,255,255,0.92);color:#222;font:12px/1.35 ui-monospace,Menlo,monospace;border:1px solid #999;border-radius:8px;white-space:pre-wrap;z-index:50"></pre>
+  <script is:inline>
+    const out = document.getElementById('dbg');
+    const css = [...document.querySelectorAll('link[rel=stylesheet]')].map((l) => l.getAttribute('href').split('/').pop()).join(', ');
+    let latestCss = 'checking';
+    fetch('/?nocache=' + Date.now(), { cache: 'reload' })
+      .then((r) => r.text())
+      .then((t) => { latestCss = (t.match(/_astro\/(Base\.[^"]+\.css)/) || [])[1] || 'none found'; })
+      .catch((e) => { latestCss = 'fetch failed'; });
+    let errors = [];
+    addEventListener('error', (e) => errors.push(String(e.message)));
+    const draw = () => {
+      const r = document.documentElement;
+      const max = r.scrollHeight - innerHeight;
+      const p = max > 0 ? (scrollY / max).toFixed(2) : '0';
+      const meta = document.querySelector('meta[name=theme-color]');
+      const navB = getComputedStyle(document.querySelector('.nav-bar'), '::before');
+      out.textContent = [
+        'build ' + document.getElementById('build').textContent,
+        'css in use:  ' + css,
+        'css on server: ' + latestCss + (latestCss === css ? '  (same)' : '  (DIFFERENT)'),
+        'scroll p=' + p + '  y=' + Math.round(scrollY),
+        'html bg:   ' + getComputedStyle(r).backgroundColor,
+        'body bg:   ' + getComputedStyle(document.body).backgroundColor,
+        'theme-color: ' + (meta && meta.content),
+        'html inline bg: ' + (r.style.backgroundColor || '(none: script did not run)'),
+        'nav overlay opacity: ' + navB.opacity,
+        'scroll-timeline support: ' + CSS.supports('animation-timeline: scroll()'),
+        'reduced motion: ' + matchMedia('(prefers-reduced-motion: reduce)').matches,
+        'errors: ' + (errors.join(' | ') || 'none'),
+        navigator.userAgent.slice(0, 90),
+      ].join('\n');
+    };
+    addEventListener('scroll', draw, { passive: true });
+    setInterval(draw, 700);
+    draw();
+  </script>
+</Base>
