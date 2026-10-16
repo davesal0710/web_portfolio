@@ -380,12 +380,16 @@ section {
 .shots figure {
   margin: 0;
 }
-.shots.four {
+.shots.four,
+.shots.five {
   grid-template-columns: repeat(2, 1fr);
 }
 @media (min-width: 40rem) {
   .shots.four {
     grid-template-columns: repeat(4, 1fr);
+  }
+  .shots.five {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 .shots img,

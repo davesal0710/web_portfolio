@@ -5,6 +5,7 @@ import calendar from '../../assets/tetsu-calendar.png';
 import progress from '../../assets/tetsu-progress.png';
 import aiImport from '../../assets/tetsu-ai-import.png';
 import timer from '../../assets/tetsu-workout-timer.png';
+import restore from '../../assets/tetsu-backup-restore.png';
 import logo from '../../assets/tetsu-logo.jpg';
 
 const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
@@ -93,7 +94,7 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
         </li>
         <li>Data safety and offline use: JSON backups, CSV exports, and an installable app that works without a signal.</li>
       </ul>
-      <div class="shots four" data-reveal>
+      <div class="shots five" data-reveal>
         <figure>
           <Image src={calendar} alt="Tetsu's month calendar on a phone" {...shot} />
           <figcaption>Calendar</figcaption>
@@ -110,7 +111,12 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
           <Image src={timer} alt="Tetsu's workout screen with the rest timer" {...shot} />
           <figcaption>Workout and rest timer</figcaption>
         </figure>
+        <figure>
+          <Image src={restore} alt="Tetsu's backup restore screen, showing a summary of the file and a choice between a safe merge and a full replace" {...shot} />
+          <figcaption>Backup and restore</figcaption>
+        </figure>
       </div>
+      <p class="figure-note" data-reveal>Screens show made-up training data.</p>
 </div>
     </section>
 
