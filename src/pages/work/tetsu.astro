@@ -82,18 +82,48 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
     <section>
 <div class="col">
       <h2 data-reveal>What I built</h2>
-      <ul data-reveal>
-        <li>
-          Paste-to-plan import with a review screen, so nothing replaces the current plan without
-          the user seeing it first.
-        </li>
-        <li>A calendar with set-by-set logging, streaks, and a rest timer that survives the phone sleeping.</li>
-        <li>
-          Progress forecasts using double progression: add reps until the top of the range, then add
-          load, in real gym increments.
-        </li>
-        <li>Data safety and offline use: JSON backups, CSV exports, and an installable app that works without a signal.</li>
-      </ul>
+      <div class="stage" data-stage data-reveal>
+        <ol class="stage-steps">
+          <li data-screen="0">
+            Paste-to-plan import with a review screen, so nothing replaces the current plan without
+            the user seeing it first.
+          </li>
+          <li data-screen="1">A calendar with set-by-set logging and streaks.</li>
+          <li data-screen="2">A rest timer that survives the phone sleeping.</li>
+          <li data-screen="3">
+            Progress forecasts using double progression: add reps until the top of the range, then
+            add load, in real gym increments.
+          </li>
+          <li data-screen="4">
+            Data safety and offline use: JSON backups, CSV exports, and an installable app that works
+            without a signal.
+          </li>
+        </ol>
+        <div class="stage-phone" aria-live="off">
+          <div class="slides">
+            <figure class="slide">
+              <Image src={aiImport} alt="Tetsu’s import screen, where a pasted routine is reviewed before saving" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
+              <figcaption>Import and review</figcaption>
+            </figure>
+            <figure class="slide">
+              <Image src={calendar} alt="Tetsu’s month calendar on a phone" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
+              <figcaption>Calendar</figcaption>
+            </figure>
+            <figure class="slide">
+              <Image src={timer} alt="Tetsu’s workout screen with the rest timer" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
+              <figcaption>Workout and rest timer</figcaption>
+            </figure>
+            <figure class="slide">
+              <Image src={progress} alt="Tetsu’s progress tab, with history and advice for an exercise" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
+              <figcaption>Progress and advice</figcaption>
+            </figure>
+            <figure class="slide">
+              <Image src={restore} alt="Tetsu’s backup restore screen, showing a summary of the file and a choice between a safe merge and a full replace" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
+              <figcaption>Backup and restore</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
       <div class="shots five" data-reveal>
         <figure>
           <Image src={calendar} alt="Tetsu’s month calendar on a phone" {...shot} />
@@ -355,6 +385,26 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
 </div>
     </section>
   </div>
+  <script>
+    // The screen beside the text follows the step in the middle of the viewport.
+    const stage = document.querySelector('[data-stage]');
+    if (stage && 'IntersectionObserver' in window) {
+      const steps = [...stage.querySelectorAll<HTMLElement>('.stage-steps li')];
+      const slides = [...stage.querySelectorAll<HTMLElement>('.slide')];
+      const show = (i: number) => {
+        steps.forEach((s, j) => s.classList.toggle('is-on', j === i));
+        slides.forEach((s, j) => {
+          s.classList.toggle('is-on', j === i);
+          s.setAttribute('aria-hidden', String(j !== i));
+        });
+      };
+      show(0);
+      const band = new IntersectionObserver((es) => {
+        es.forEach((e) => { if (e.isIntersecting) show(steps.indexOf(e.target as HTMLElement)); });
+      }, { rootMargin: '-45% 0px -45% 0px' });
+      steps.forEach((s) => band.observe(s));
+    }
+  </script>
   <script>
     // The clip plays on its own and a tap pauses it. People who ask for reduced motion start paused.
     const toggle = document.querySelector<HTMLButtonElement>('.gif-toggle');
