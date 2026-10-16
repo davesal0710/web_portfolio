@@ -34,8 +34,8 @@
   --font: 'Switzer', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-  --radius: 8px;
-  --radius-lg: 14px;
+  --radius: 10px;
+  --radius-lg: 18px;
   --nav-h: 4.25rem;
 
   --step-small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
@@ -1570,4 +1570,49 @@ body::before,
   .js .stage-phone .slide.is-on {
     transform: none;
   }
+}
+
+/* Calm pass: one continuous page. No colour bands, softer corners and links, slower hover, framed screens, warmer photos. */
+.band {
+  background: transparent;
+  margin-top: 0;
+  padding-bottom: 0;
+}
+.band .panel,
+.band .demo {
+  background: var(--surface);
+}
+body {
+  line-height: 1.6;
+}
+@media (min-width: 40rem) {
+  section {
+    padding-block: 7rem 0;
+  }
+}
+a {
+  text-decoration-color: color-mix(in srgb, var(--ink) 45%, transparent);
+}
+.btn {
+  transition: transform 220ms var(--ease-out), background-color 220ms var(--ease-out);
+}
+.tabs a {
+  transition-duration: 260ms;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .tabs .pill.ready {
+    transition-duration: 360ms;
+  }
+}
+.who img,
+.contact img,
+.about-photo img {
+  filter: saturate(0.94) sepia(0.06);
+}
+.shots img,
+.stage-phone img,
+.gif-toggle img,
+.case-head .logo {
+  border: 5px solid var(--surface);
+  background: var(--surface);
 }
