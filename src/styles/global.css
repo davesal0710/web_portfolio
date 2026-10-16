@@ -68,9 +68,12 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+html {
+  background: var(--bg);
+}
 body {
   margin: 0;
-  background: var(--bg);
+  background: transparent;
   color: var(--ink);
   font-family: var(--font);
   font-size: var(--step-body);
@@ -1428,18 +1431,15 @@ html {
    --p (0 to 1) is the scroll progress. Browsers with scroll-driven animation use it natively; the rest get it from a small script in Base.astro.
    It is a tone change and a thin progress line, not travel, so it also runs when reduced motion is on.
    Longhands on purpose: the minifier folds them into a shorthand Chrome ignores. */
-body::before,
+/* The page colour itself is the html background, lerped by the script in Base.astro. The nav bar is its own solid bar, so it carries a matching overlay. */
 .nav-bar::before {
   content: '';
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: -1;
   background: #fbe2cb;
   opacity: var(--p, 0);
   pointer-events: none;
-}
-.nav-bar::before {
-  position: absolute;
 }
 .nav-bar::after {
   content: '';
@@ -1466,7 +1466,6 @@ body::before,
   }
 }
 @supports (animation-timeline: scroll()) {
-  body::before,
   .nav-bar::before {
     opacity: 0;
     animation-name: warm-in;
