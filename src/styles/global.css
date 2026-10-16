@@ -943,13 +943,21 @@ details.fold .fold-body {
     grid-column: 1 / -1;
   }
   #about .col > p,
-  #about .col > .facts,
-  #about .col > .skills-block {
+  #about .col > .facts {
     grid-column: 1;
   }
   #about .col > .exp {
     grid-column: 2;
-    grid-row: 2 / span 4;
+    grid-row: 2 / span 3;
+  }
+  #about .col > .skills-block {
+    grid-column: 1 / -1;
+    grid-row: 5;
+  }
+  #about .skills-block .rows {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 5rem;
   }
   #about .exp .group {
     margin-top: 0;
@@ -1024,7 +1032,7 @@ details.fold .fold-body {
 
 @media (min-width: 64rem) {
   #about .col > .skills-block {
-    margin-top: 3rem;
+    margin-top: 2.5rem;
   }
 }
 details.fold summary h2 {
@@ -1343,4 +1351,26 @@ html {
 .demo .seg button:active,
 .tabs a:active {
   transform: scale(0.97);
+}
+
+/* desktop: the demo card is as tall as the pane showing, so short panes leave no blank space */
+@media (min-width: 64rem) {
+  .js [data-demo] {
+    position: relative;
+    display: block;
+  }
+  .js [data-pane]:not(.is-active) {
+    position: absolute;
+    inset: 0 0 auto;
+  }
+}
+
+/* Tetsu logo under the work screenshots */
+.shots .logo {
+  grid-column: 1 / -1;
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 1.5rem;
+  border-radius: var(--radius-lg);
 }

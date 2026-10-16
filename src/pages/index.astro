@@ -5,6 +5,7 @@ import headshot from '../assets/david-salazar-headshot.jpg';
 import calendar from '../assets/tetsu-calendar.png';
 import progress from '../assets/tetsu-progress.png';
 import aiImport from '../assets/tetsu-ai-import.png';
+import logo from '../assets/tetsu-logo.jpg';
 import hackathon from '../assets/computershare-hackathon.jpg';
 ---
 
@@ -41,17 +42,15 @@ import hackathon from '../assets/computershare-hackathon.jpg';
           <div data-pane data-label="Note">
             <span class="label">What a user might say (a working persona, not an interview)</span>
             <p>
-              “I keep a year of routines in my notes: Preacher Curl - 42.5, 55 (20.5kg other
-              machine). Every tracker wants me to retype all of it, and I don't want to lose my
-              history.”
+              “My whole routine lives in my notes app: bench 135 lb for 8, lat pulldown 42.5 kg
+              for 10. Every tracker makes me retype it, and I'm afraid I'll lose my numbers.”
             </p>
           </div>
           <div data-pane data-label="User story">
             <span class="label">What the product has to do for them</span>
             <p>
-              As someone with a year of routines in notes, I want to paste them in and check the
-              result before anything is replaced, so that I keep my history and my numbers exactly
-              as written.
+              As a lifter who keeps my routine in a notes app, I want to paste it in and check how
+              it was read before anything is saved, so that I keep my numbers exactly as written.
             </p>
           </div>
           <div data-pane data-label="Criteria">
@@ -122,6 +121,7 @@ import hackathon from '../assets/computershare-hackathon.jpg';
             />
             <figcaption>Import and review</figcaption>
           </figure>
+          <Image class="logo" src={logo} alt="The Tetsu logo" widths={[400, 800]} sizes="(min-width: 64rem) 31rem, 92vw" />
         </div>
         <ul data-reveal>
           <li>75 automated tests and 61 browser test cases.</li>
