@@ -74,6 +74,8 @@ const tabs = [
         const a = links.find((l) => l.dataset.tab === id);
         if (!a) return;
         pill.style.transform = `translateX(${a.offsetLeft}px) scaleX(${a.offsetWidth / 100})`;
+        // keep the active tab in view when the bar scrolls (big text, tiny screens)
+        if (tabs.scrollWidth > tabs.clientWidth) tabs.scrollTo({ left: Math.max(0, a.offsetLeft - 8), behavior: 'auto' });
       }
       const active = () => links.find((a) => a.hasAttribute('aria-current'))?.dataset.tab;
 

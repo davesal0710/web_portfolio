@@ -23,10 +23,12 @@
 :root {
   --bg: #f8efe3;
   --surface: #f1e1cd;
-  --step: #f2c6a4;
+  --step: #f7d0b4;
   --ink: #2e2218;
   --muted: #6a5443;
-  --accent: #e9976a;
+  --accent: #f5bd9b;
+  --accent-hover: #f0ae88;
+  --chart: #eaa781;
   --accent-ink: #2e2218;
   --font-display: 'Cabinet Grotesk', 'Switzer', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font: 'Switzer', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -82,7 +84,7 @@ body {
   color: var(--accent-ink);
 }
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--ink);
   outline-offset: 3px;
   border-radius: var(--radius);
 }
@@ -277,7 +279,7 @@ section {
 }
 @media (hover: hover) and (pointer: fine) {
   .btn:hover {
-    background: #de8458;
+    background: var(--accent-hover);
   }
 }
 .btn:active {
@@ -473,7 +475,7 @@ h3.group {
 .facts {
   display: grid;
   gap: 1rem 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
   margin: 2.25rem 0 0;
 }
 .facts dt {
@@ -659,7 +661,7 @@ footer p {
 .bars .fill {
   display: block;
   height: 100%;
-  background: var(--accent);
+  background: var(--chart);
   border-radius: var(--radius);
 }
 .bars .pct {
@@ -681,7 +683,7 @@ footer p {
 .columns-chart span {
   position: relative;
   flex: 1;
-  background: var(--accent);
+  background: var(--chart);
   border-radius: var(--radius) var(--radius) 0 0;
   min-height: 2px;
 }
@@ -1135,5 +1137,98 @@ h3.group {
 @media (min-width: 64rem) {
   #about .col > .about-photo {
     grid-column: 1;
+  }
+}
+
+/* demo: panes sit in one grid cell and cross-fade, so the card never changes height */
+.js [data-demo] {
+  display: grid;
+}
+.js [data-pane] {
+  grid-area: 1 / 1;
+  opacity: 0;
+  pointer-events: none;
+}
+.js [data-pane].is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-pane] {
+    transform: translateY(4px);
+    transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+  }
+  .js [data-pane].is-active {
+    transform: none;
+  }
+}
+
+.case-next {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  align-items: center;
+}
+
+/* worst cases: big text and 320px screens */
+.tabs {
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+.tabs a {
+  flex: none;
+}
+.contact > div,
+.contact-lines,
+.big {
+  min-width: 0;
+}
+.big,
+.contact-lines a,
+.contact a {
+  overflow-wrap: anywhere;
+}
+.bars li {
+  grid-template-columns: minmax(4.5rem, 10rem) minmax(1.5rem, 1fr) auto;
+}
+.bars li > span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.spec dd,
+.facts dd,
+.rows .head span {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 40rem) {
+  .bars li {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 0.25rem;
+  }
+  .bars li > span:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* display titles never exceed the screen, even with enlarged text */
+h1,
+h2,
+h3,
+.lede {
+  overflow-wrap: anywhere;
+}
+.case-head h1 {
+  font-size: clamp(2.5rem, 1.5rem + 6vw, 6rem);
+}
+
+@media (min-width: 64rem) {
+  /* the demo card is as tall as its longest pane, so extra height goes to the last row, not between the lines */
+  .hero .col {
+    grid-template-rows: auto auto 1fr;
   }
 }

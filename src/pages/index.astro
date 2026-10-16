@@ -299,7 +299,10 @@ import hackathon from '../assets/computershare-hackathon.jpg';
       seg.setAttribute('role', 'group');
       seg.setAttribute('aria-label', 'Steps from a note to a requirement');
       const show = (i: number) => {
-        panes.forEach((p, j) => (p.hidden = j !== i));
+        panes.forEach((p, j) => {
+          p.classList.toggle('is-active', j === i);
+          p.inert = j !== i;
+        });
         [...seg.children].forEach((b, j) => b.setAttribute('aria-pressed', String(j === i)));
       };
       panes.forEach((p, i) => {
