@@ -116,6 +116,47 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
 
     <section>
 <div class="col">
+      <h2 data-reveal>Designing the AI import</h2>
+      <p data-reveal>
+        The import is where Tetsu uses AI in the product itself, so I specified it as a
+        workflow with a person checking the result, not as a chatbot. This is the flow I defined.
+      </p>
+      <ol data-reveal>
+        <li>The user pastes a routine, up to 12,000 characters.</li>
+        <li>A local parser reads the common shapes first, so common formats don't need the AI.</li>
+        <li>
+          Harder text goes to Gemini through a server I control. The key stays on the server, and
+          the app tells the user their pasted text leaves the device.
+        </li>
+        <li>
+          The result is checked on the server and again in the browser: at most 7 days and 30
+          exercises per day, bounded sets and text, and any field I didn't ask for is dropped.
+        </li>
+        <li>The user sees a review screen. Nothing replaces the current plan until they confirm.</li>
+      </ol>
+      <div class="runin">
+        <p data-reveal>
+          <strong>Limits.</strong> 3 AI parses per minute and 15 per day per person, and a daily
+          budget for the whole demo, because it runs on a free tier.
+        </p>
+        <p data-reveal>
+          <strong>Failure is expected.</strong> If the AI is down or rate limited, manual entry,
+          logging and timers keep working.
+        </p>
+        <p data-reveal>
+          <strong>Measured.</strong> Every parse records success or failure, without the routine
+          text, so the AI success rate can be tracked once there is real usage.
+        </p>
+        <p data-reveal>
+          <strong>Tested without the AI.</strong> The tests for the import and the proxy's security
+          rules never call the real model, so they run the same every time.
+        </p>
+      </div>
+</div>
+    </section>
+
+    <section>
+<div class="col">
       <h2 data-reveal>My role</h2>
       <p data-reveal>
         I chose the problem, decided what to build and what to cut, wrote the acceptance criteria,
