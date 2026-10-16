@@ -4,16 +4,17 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
-  current?: 'intro' | 'work' | 'about' | 'contact';
+  current?: string;
+  pager?: boolean;
 }
-const { title, description, current } = Astro.props;
-const home = Astro.url.pathname === '/';
-const prefix = home ? '' : '/';
+const { title, description, current, pager = false } = Astro.props;
+const prefix = pager ? '#' : '/#';
 const tabs = [
-  { id: 'intro', label: 'intro', href: home ? '#top' : '/' },
-  { id: 'work', label: 'work', href: `${prefix}#work` },
-  { id: 'about', label: 'about', href: `${prefix}#about` },
-  { id: 'contact', label: 'contact', href: `${prefix}#contact` },
+  { id: 'intro', label: 'intro' },
+  { id: 'tetsu', label: 'tetsu' },
+  { id: 'more', label: 'more' },
+  { id: 'about', label: 'about' },
+  { id: 'contact', label: 'contact' },
 ];
 ---
 
@@ -26,39 +27,41 @@ const tabs = [
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta name="theme-color" content="#ebe6db" />
+    <meta name="theme-color" content="#eee8da" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" href="/fonts/switzer-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/switzer-500.woff2" as="font" type="font/woff2" crossorigin />
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
-  <body id="top">
+  <body class={pager ? 'pager' : undefined}>
     <a class="skip" href="#main">Skip to content</a>
     <header class="nav-bar">
-      <nav class="col" aria-label="Main">
+      <nav class={pager ? 'nav-pad' : 'col'} aria-label="Main">
         <div class="tabs" data-tabs>
           <span class="pill" aria-hidden="true"></span>
           {tabs.map((t) => (
-            <a href={t.href} data-tab={t.id} aria-current={t.id === current ? 'true' : undefined}>
+            <a href={`${prefix}${t.id}`} data-tab={t.id} aria-current={t.id === current ? 'true' : undefined}>
               {t.label}
             </a>
           ))}
         </div>
       </nav>
     </header>
-    <main id="main">
-      <slot />
-    </main>
-    <footer>
-      <div class="col">
-        <p>David Salazar, New York</p>
-      </div>
-    </footer>
-    <script define:vars={{ home }}>
+    <slot />
+    {!pager && (
+      <footer>
+        <div class="col">
+          <p>David Salazar, New York</p>
+        </div>
+      </footer>
+    )}
+    <script define:vars={{ pager }}>
       const tabs = document.querySelector('[data-tabs]');
       const pill = tabs.querySelector('.pill');
       const links = [...tabs.querySelectorAll('a')];
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+      const active = () => links.find((a) => a.hasAttribute('aria-current'))?.dataset.tab;
       function select(id) {
         links.forEach((a) => {
           if (a.dataset.tab === id) a.setAttribute('aria-current', 'true');
@@ -66,46 +69,82 @@ const tabs = [
         });
         const a = links.find((l) => l.dataset.tab === id);
         if (!a) return;
-        tabs.style.setProperty('--x', a.offsetLeft + 'px');
-        tabs.style.setProperty('--s', String(a.offsetWidth / 100));
+        pill.style.transform = `translateX(${a.offsetLeft}px) scaleX(${a.offsetWidth / 100})`;
       }
-      const active = () => links.find((a) => a.hasAttribute('aria-current'))?.dataset.tab;
-
-      select(active() ?? 'work');
+      select(active() ?? 'tetsu');
       requestAnimationFrame(() => pill.classList.add('ready'));
       addEventListener('resize', () => select(active()));
       document.fonts?.ready.then(() => select(active()));
 
-      const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => {
-        es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { rootMargin: '0px 0px -8% 0px' }) : null;
-      document.querySelectorAll('section, header.case-head').forEach((sec) => {
-        sec.querySelectorAll('[data-reveal]').forEach((el, i) => {
-          el.style.setProperty('--d', Math.min(i, 5) * 70 + 'ms');
-          if (!io || el.getBoundingClientRect().top < innerHeight * 0.9) {
-            el.style.transition = 'none';
-            el.classList.add('in');
-          } else io.observe(el);
-        });
-      });
+      if (pager) {
+        const track = document.querySelector('[data-track]');
+        const pages = [...track.querySelectorAll('[data-page]')];
+        const ids = pages.map((p) => p.id);
+        const clamp = (i) => Math.max(0, Math.min(pages.length - 1, i));
+        const index = () => clamp(Math.round(track.scrollLeft / track.clientWidth));
 
-      if (home) {
-        const ids = ['intro', 'work', 'about', 'contact'];
-        const sections = ids.map((id) => document.getElementById(id === 'intro' ? 'top' : id));
-        const onScroll = () => {
-          const atBottom = innerHeight + scrollY >= document.documentElement.scrollHeight - 4;
-          let current = 'intro';
-          if (atBottom) current = 'contact';
-          else {
-            const line = scrollY + innerHeight * 0.35;
-            sections.forEach((s, i) => {
-              if (i > 0 && s && s.offsetTop <= line) current = ids[i];
-            });
-          }
-          if (current !== active()) select(current);
-        };
-        addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
+        track.querySelectorAll('#intro [data-reveal]').forEach((el, i) =>
+          el.style.setProperty('--d', i * 50 + 'ms')
+        );
+
+        function go(i, instant) {
+          track.scrollTo({ left: clamp(i) * track.clientWidth, behavior: instant || reduce ? 'instant' : 'smooth' });
+        }
+
+        let shown = -1;
+        function sync() {
+          const i = index();
+          if (i === shown) return;
+          shown = i;
+          pages.forEach((p, j) => p.classList.toggle('active', j === i));
+          select(ids[i]);
+          history.replaceState(null, '', '#' + ids[i]);
+        }
+
+        const start = ids.indexOf(location.hash.slice(1));
+        if (start > 0) track.scrollTo({ left: start * track.clientWidth, behavior: 'instant' });
+        sync();
+
+        let raf = 0;
+        track.addEventListener('scroll', () => {
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(sync);
+        }, { passive: true });
+        addEventListener('resize', () => go(index(), true));
+
+        links.forEach((a) =>
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            go(ids.indexOf(a.dataset.tab));
+          })
+        );
+
+        addEventListener('keydown', (e) => {
+          if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+          if (e.target.closest?.('input, textarea, select')) return;
+          if (e.key === 'ArrowRight') go(index() + 1, true);
+          else if (e.key === 'ArrowLeft') go(index() - 1, true);
+          else return;
+          e.preventDefault();
+        });
+
+        addEventListener('hashchange', () => {
+          const i = ids.indexOf(location.hash.slice(1));
+          if (i >= 0) go(i);
+        });
+      } else {
+        const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => {
+          es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { rootMargin: '0px 0px -8% 0px' }) : null;
+        document.querySelectorAll('section, header.case-head').forEach((sec) => {
+          sec.querySelectorAll('[data-reveal]').forEach((el, i) => {
+            el.style.setProperty('--d', Math.min(i, 5) * 70 + 'ms');
+            if (!io || el.getBoundingClientRect().top < innerHeight * 0.9) {
+              el.style.transition = 'none';
+              el.classList.add('in');
+            } else io.observe(el);
+          });
+        });
       }
     </script>
   </body>

@@ -14,17 +14,20 @@
 }
 
 :root {
-  --bg: #ebe6db;
-  --surface: #ded7c8;
-  --step: #d0c8b4;
+  --bg: #eee8da;
+  --surface: #e0d9c8;
+  --step: #d1c9b3;
   --ink: #2a2520;
   --muted: #5c5347;
   --accent: #3f5a3a;
+  --accent-deep: #334b2f;
   --accent-ink: #f6f1e6;
   --font: 'Switzer', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --radius: 4px;
   --nav-h: 4.25rem;
+  --pad: clamp(1.25rem, 4vw, 4.5rem);
 
   --step-small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
   --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
@@ -72,7 +75,7 @@ body {
   color: var(--accent-ink);
 }
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--ink);
   outline-offset: 3px;
   border-radius: var(--radius);
 }
@@ -104,6 +107,9 @@ body {
 }
 
 /* nav */
+.nav-pad {
+  padding-inline: var(--pad);
+}
 .nav-bar {
   position: sticky;
   top: 0;
@@ -134,9 +140,13 @@ body {
   font-size: var(--step-small);
   transition: color 150ms var(--ease-out);
 }
-.tabs a:hover,
 .tabs a[aria-current] {
   color: var(--ink);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tabs a:hover {
+    color: var(--ink);
+  }
 }
 .tabs a[aria-current] {
   font-weight: 500;
@@ -149,7 +159,7 @@ body {
   left: 0;
   width: 100px;
   transform-origin: left center;
-  transform: translateX(var(--x, 0)) scaleX(var(--s, 0));
+  transform: scaleX(0);
   background: var(--step);
   border-radius: 3px;
   opacity: 0;
@@ -159,7 +169,7 @@ body {
 }
 @media (prefers-reduced-motion: no-preference) {
   .js .tabs .pill.ready {
-    transition: transform 280ms var(--ease-out);
+    transition: transform 240ms var(--ease-in-out);
   }
 }
 @media (max-width: 23rem) {
@@ -260,9 +270,12 @@ section {
   font-weight: 500;
   transition: transform 140ms var(--ease-out), background-color 140ms var(--ease-out);
 }
-.btn:hover {
-  background: #334b2f;
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    background: var(--accent-deep);
+  }
 }
+
 .btn:active {
   transform: scale(0.97);
 }
@@ -297,8 +310,10 @@ section {
   cursor: pointer;
   transition: background-color 150ms var(--ease-out), color 150ms var(--ease-out);
 }
-.demo .seg button:hover {
-  color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .demo .seg button:hover {
+    color: var(--ink);
+  }
 }
 .demo .seg button[aria-pressed='true'] {
   background: var(--step);
@@ -409,7 +424,7 @@ section {
   padding: 0;
 }
 .rows > li {
-  margin-bottom: 1.9rem;
+  margin-bottom: 1.4rem;
 }
 .rows .head {
   display: flex;
@@ -603,14 +618,247 @@ footer p {
 
 /* entrance: parts of a section rise in turn; content stays visible without script */
 @media (prefers-reduced-motion: no-preference) {
-  .js [data-reveal] {
+  .js body:not(.pager) [data-reveal] {
     opacity: 0;
     transform: translateY(14px);
     transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out);
     transition-delay: var(--d, 0ms);
   }
-  .js [data-reveal].in {
+  .js body:not(.pager) [data-reveal].in {
     opacity: 1;
     transform: none;
+  }
+}
+
+
+/* horizontal pager: every section is one full page */
+body.pager {
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.pager .nav-bar {
+  flex: none;
+}
+.track {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.track::-webkit-scrollbar {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .track {
+    scroll-behavior: smooth;
+  }
+}
+.page {
+  padding: 0;
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.page .inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 100%;
+}
+.page .text {
+  padding: var(--pad);
+  padding-top: clamp(1rem, 3vw, 3rem);
+  align-self: center;
+  min-width: 0;
+}
+.page .text > * {
+  max-width: 34rem;
+}
+.field {
+  background: var(--surface);
+  color: var(--ink);
+  padding: var(--pad);
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 1.25rem;
+  min-width: 0;
+}
+@media (max-width: 55.99rem) {
+  .field {
+    padding-block: 2.5rem;
+  }
+}
+.field.tone {
+  background: var(--surface);
+}
+@media (min-width: 56rem) {
+  .page.split .inner {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  }
+}
+.page h2 {
+  font-size: clamp(2.5rem, 1.5rem + 3.4vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.25rem;
+}
+.page h1 {
+  font-size: clamp(2rem, 1.2rem + 2.4vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  max-width: 14em;
+  margin-bottom: 1.25rem;
+}
+.page h3 {
+  margin-bottom: 0.35rem;
+}
+.lede {
+  font-size: var(--step-lead);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.25rem;
+}
+.page .meta {
+  color: var(--muted);
+  font-size: var(--step-small);
+  margin-bottom: 0.75rem;
+}
+.page ul.plain {
+  padding-left: 1.1rem;
+  margin: 0 0 1.25rem;
+}
+.page ul.plain li {
+  margin-bottom: 0.4rem;
+}
+
+/* demo card on the orange field */
+.field .demo {
+  margin: 0;
+  width: min(100%, 30rem);
+  background: var(--bg);
+  padding: 1.5rem;
+}
+.field .demo .seg button[aria-pressed='true'] {
+  background: var(--step);
+}
+
+/* tetsu screenshots on the orange field */
+.phones {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.5rem, 1.5vw, 1.25rem);
+  width: min(100%, 38rem);
+  margin: 0;
+}
+.phones figure {
+  margin: 0;
+}
+.phones img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+.phones figcaption {
+  font-size: var(--step-small);
+  margin-top: 0.5rem;
+  line-height: 1.3;
+}
+
+/* more work: orange band on top, two text columns */
+.page.stack .inner {
+  grid-template-rows: auto 1fr;
+}
+.page.stack .band-top {
+  background: var(--surface);
+  padding: var(--pad);
+  padding-block: clamp(1.5rem, 4vw, 3rem);
+}
+.page.stack .band-top h2 {
+  margin: 0;
+}
+.two-col {
+  align-content: center;
+  font-size: 1.25rem;
+  display: grid;
+  gap: 2.5rem var(--pad);
+  padding: var(--pad);
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
+  align-content: start;
+}
+@media (min-width: 56rem) {
+  .two-col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.two-col p {
+  max-width: 34rem;
+}
+.two-col h3 {
+  font-size: var(--step-lead);
+}
+
+/* about */
+.page .facts {
+  max-width: 34rem;
+}
+.skills-list {
+  margin: 2rem 0 0;
+}
+.skills-list dt {
+  font-weight: 500;
+  margin-top: 0.75rem;
+}
+.skills-list dd {
+  margin: 0;
+}
+
+/* contact: one orange field */
+.page.contact-page {
+  background: var(--surface);
+}
+.page.contact-page .big-link {
+  display: inline-block;
+  padding-block: 0.3rem;
+  font-size: var(--step-lead);
+  letter-spacing: -0.02em;
+}
+.page.contact-page .portrait {
+  display: grid;
+  place-items: center;
+  padding: var(--pad);
+}
+.page.contact-page .portrait img {
+  height: auto;
+  width: min(100%, 20rem);
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+.page.contact-page .statement {
+  max-width: 20em;
+}
+
+/* first load only: the intro's parts rise in turn. Other pages stay visible so a swipe never shows a blank page. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+  #intro [data-reveal] {
+    animation: rise 320ms var(--ease-out) both;
+    animation-delay: var(--d, 0ms);
   }
 }
