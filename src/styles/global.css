@@ -547,7 +547,7 @@ footer p {
   padding-block: 4.5rem 0;
 }
 .case .band + .band {
-  padding-top: 0;
+  padding-top: 3.5rem;
 }
 .case .band:last-of-type {
   padding-bottom: 6rem;
@@ -1028,5 +1028,69 @@ details.fold summary h2 {
   #contact .statement {
     font-size: var(--step-lead);
     max-width: 24em;
+  }
+}
+
+/* capstone: the prototype changes, drawn from the deck's content in the site's own palette */
+.changes {
+  display: grid;
+  gap: 1.25rem;
+  margin: 1.75rem 0;
+}
+.changes-head {
+  display: none;
+}
+.change {
+  display: grid;
+  gap: 0.5rem;
+}
+.change h3 {
+  margin: 0;
+  font-size: var(--step-body);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.change p {
+  margin: 0;
+}
+.change .before {
+  color: var(--muted);
+}
+.change .after {
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.8rem;
+}
+@media (min-width: 40rem) {
+  .changes-head,
+  .change {
+    grid-template-columns: 6.5rem minmax(0, 1fr) minmax(0, 1.2fr);
+    column-gap: 1.25rem;
+    align-items: start;
+  }
+  .changes-head {
+    display: grid;
+    color: var(--muted);
+    font-size: var(--step-small);
+  }
+}
+.glowgrow {
+  display: grid;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+.glowgrow h3 {
+  font-size: var(--step-body);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.glowgrow ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+@media (min-width: 40rem) {
+  .glowgrow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem;
   }
 }

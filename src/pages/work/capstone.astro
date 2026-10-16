@@ -1,12 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
-import signup from '../../assets/capstone-signup.png';
-import inbox from '../../assets/capstone-inbox.png';
-import pinned from '../../assets/capstone-pinned.png';
-import filters from '../../assets/capstone-filters.png';
 
-const slide = { widths: [640, 1000], sizes: '(min-width: 40rem) 35rem, 92vw' };
 ---
 
 <Base
@@ -93,35 +87,36 @@ const slide = { widths: [640, 1000], sizes: '(min-width: 40rem) 35rem, 92vw' };
         <h2 data-reveal>What we prototyped</h2>
         <p data-reveal>
           We started from the college's existing student life app and redesigned the parts the
-          research pointed at.
+          research pointed at. We prototyped screens rather than building the app.
         </p>
-        <ul data-reveal>
-          <li><strong>A simpler sign-up</strong> with an option to subscribe to the school newsletter, and a warmer home page for newcomers.</li>
-          <li><strong>Per-group calendars</strong> in the inbox, so group events stay out of the main calendar and it stops being cluttered.</li>
-          <li><strong>Pinned conversations</strong> to keep the important ones at the top.</li>
-          <li><strong>Group pages with photos</strong> so groups feel welcoming.</li>
-          <li><strong>Better search filters</strong> by school, interests and department, so people can find events that fit them.</li>
-          <li><strong>Calendar views</strong> for different preferences.</li>
-        </ul>
-        <div class="slides">
-          <figure data-reveal>
-            <Image src={signup} alt="Slide showing the current sign-up and feed screens next to the redesigned sign-up and home page" {...slide} />
-            <figcaption>Sign-up and home page, current app next to the redesign.</figcaption>
-          </figure>
-          <figure data-reveal>
-            <Image src={inbox} alt="Slide showing the current chat list next to a redesigned inbox with a calendar button for each group" {...slide} />
-            <figcaption>Inbox with a calendar for each group.</figcaption>
-          </figure>
-          <figure data-reveal>
-            <Image src={pinned} alt="Slide showing the current chat list next to a redesigned one with pinned conversations at the top" {...slide} />
-            <figcaption>Pinned conversations at the top of the chat list.</figcaption>
-          </figure>
-          <figure data-reveal>
-            <Image src={filters} alt="Slide showing the current sort and filter screen next to a redesigned filter by school, interests and department" {...slide} />
-            <figcaption>Search filters by school, interests and department.</figcaption>
-          </figure>
+        <div class="changes" data-reveal>
+          <div class="changes-head" aria-hidden="true"><span></span><span>Before</span><span>After</span></div>
+          <div class="change">
+            <h3>Sign-up</h3>
+            <p class="before">Signing in was difficult for newcomers.</p>
+            <p class="after">A simpler sign-up with an option to subscribe to the school newsletter.</p>
+          </div>
+          <div class="change">
+            <h3>Calendars</h3>
+            <p class="before">Events from every group landed in one main calendar.</p>
+            <p class="after">A calendar for each group, so the main one stays clear.</p>
+          </div>
+          <div class="change">
+            <h3>Chat</h3>
+            <p class="before">A chat list ordered by recent activity.</p>
+            <p class="after">Pinned conversations that stay at the top.</p>
+          </div>
+          <div class="change">
+            <h3>Groups</h3>
+            <p class="before">A plain list of group names.</p>
+            <p class="after">Group pages with photos, so groups feel welcoming.</p>
+          </div>
+          <div class="change">
+            <h3>Search</h3>
+            <p class="before">Sorting and filtering by group, group type, event type and tags.</p>
+            <p class="after">Filters by school, interests and department, so people can find events that fit them.</p>
+          </div>
         </div>
-        <p class="figure-note" data-reveal>Slides from our final presentation. The screens are prototypes.</p>
       </div>
     </section>
 
@@ -129,21 +124,28 @@ const slide = { widths: [640, 1000], sizes: '(min-width: 40rem) 35rem, 92vw' };
       <div class="col">
         <h2 data-reveal>Feedback on the prototype</h2>
         <p data-reveal>We showed the prototype to users and sorted what we heard into what worked and what to grow.</p>
-        <div class="runin">
-          <p data-reveal>
-            <strong>What worked.</strong> Pinned conversations, the decluttered calendar, the
-            improved search filters and the visuals. People who found signing in difficult said the
-            new version simplified it.
-          </p>
-          <p data-reveal>
-            <strong>What to grow.</strong> A way to request to attend an event, class due dates and
-            schedules in the same place, videos and stories of what's happening on campus, rating
-            surveys at the end of each semester, and a larger number of survey responses.
-          </p>
+        <div class="glowgrow" data-reveal>
+          <div>
+            <h3>What worked</h3>
+            <ul>
+              <li>Pinned conversations</li>
+              <li>The decluttered calendar</li>
+              <li>The improved search filters</li>
+              <li>The visuals</li>
+              <li>A simpler sign-in, for people who found it difficult</li>
+            </ul>
+          </div>
+          <div>
+            <h3>What to grow</h3>
+            <ul>
+              <li>A way to request to attend an event</li>
+              <li>Class due dates and schedules in the same place</li>
+              <li>Videos and stories of what's happening on campus</li>
+              <li>Rating surveys at the end of each semester</li>
+              <li>A larger number of survey responses</li>
+            </ul>
+          </div>
         </div>
-        <p data-reveal>
-          One of the “grow” items was a larger number of survey responses, which is a fair limit on how far
-          our research goes.</p>
       </div>
     </section>
 

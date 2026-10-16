@@ -59,26 +59,18 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
       </p>
       <div class="runin">
         <p data-reveal>
-          <strong>The Starter</strong> wants to train consistently but doesn't know how to write a
-          routine, and quits apps that open on a blank page. Success is going from first launch to
-          a logged workout in one sitting. The app serves her with three-step onboarding and starter
-          templates, a month calendar with today's routine, one-tap set logging, a rest timer and a
-          shareable recap.
+          <strong>The Starter</strong> wants to train consistently but quits apps that open on a
+          blank page. Starter templates, a month calendar and one-tap logging serve her.
         </p>
         <p data-reveal>
-          <strong>The Migrator</strong> has a year of routines in notes and spreadsheets, written in
-          shorthand and mixing kg and lb. He won't retype them into forms and fears losing his
-          history. Success is a pasted routine appearing correctly on the first or second try, and
-          a restore never overwriting a day that already has data. The app serves him with paste-to-plan
-          import and a review screen, exact decimal and unit handling, JSON backup and restore with a
-          merge-or-replace preview, and CSV exports.
+          <strong>The Migrator</strong> has a year of routines in notes and fears losing his
+          history. Paste-to-plan import with a review screen, exact units and decimals, and backup
+          and restore serve him.
         </p>
         <p data-reveal>
-          <strong>The Progressor</strong> trains for 8 to 15 reps on dumbbells, cables and machines,
-          often with no signal, in English or Spanish. She wants to know the next load to try in
-          steps her gym actually has, and honest advice when she should hold. The app serves her
-          with planned-versus-actual logging, per-exercise history, a conservative progression
-          forecast with a plain-language reason for every hold or increase, and an offline install.
+          <strong>The Progressor</strong> trains for 8 to 15 reps, often with no signal, and wants
+          honest next-load advice. Planned-versus-actual logging, a conservative progression
+          forecast and offline use serve her.
         </p>
       </div>
 </div>
@@ -89,24 +81,15 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
       <h2 data-reveal>What I built</h2>
       <ul data-reveal>
         <li>
-          Paste-to-plan import. A local parser handles common shapes, an optional Gemini endpoint
-          organizes harder text, and both feed a review screen, so nothing replaces the current plan
-          without the user seeing it first.
+          Paste-to-plan import with a review screen, so nothing replaces the current plan without
+          the user seeing it first.
         </li>
-        <li>A calendar and set-by-set logging, with notes, streaks and a shareable recap.</li>
-        <li>
-          A rest timer with per-exercise durations, opt-in sound and notifications, and protection
-          against stale alarms after the phone sleeps.
-        </li>
+        <li>A calendar with set-by-set logging, streaks, and a rest timer that survives the phone sleeping.</li>
         <li>
           Progress forecasts using double progression: add reps until the top of the range, then add
-          load, in real gym increments including 1.25&nbsp;kg steps, projected at 1, 3, 6 and 12 months.
+          load, in real gym increments.
         </li>
-        <li>
-          Data safety: full JSON backups, CSV exports, preserved unreadable history, and an
-          unsaved-backup option when saving fails.
-        </li>
-        <li>An offline-first install with an update banner and anonymous, opt-out usage analytics.</li>
+        <li>Data safety and offline use: JSON backups, CSV exports, and an installable app that works without a signal.</li>
       </ul>
       <div class="shots four" data-reveal>
         <figure>
@@ -168,17 +151,9 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
           reviewable preview keeps the user in control and keeps failures cheap.
         </p>
         <p data-reveal>
-          <strong>The AI key lives on a server with hard limits</strong>, not on the device. That
-          keeps the key private and caps abuse and cost on a free tier.
-        </p>
-        <p data-reveal>
           <strong>Analytics are on by default, with a notice and a one-tap off.</strong> Strict
           opt-in would have produced almost no data. The trade-off is that default-on collection
           may not satisfy EU-style consent rules. I flagged that and documented it.
-        </p>
-        <p data-reveal>
-          <strong>Test data is marked, not deleted.</strong> It's reversible, and the dashboard
-          simply starts counting at a cutoff date.
         </p>
       </div>
 </div>
@@ -268,11 +243,9 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
         actually lifted. All three are fixed and covered by tests.
       </p>
       <p data-reveal>
-        The repository has 75 automated unit and API tests and 61 browser test cases across 20
-        Playwright suites, covering backup merge safety, history recovery, import units and
-        decimals, timer behavior, workout completion, PWA updates and the AI proxy's security
-        rules, none of which call the real AI. Every change shipped through its own branch and pull
-        request, and several audit passes produced fixes for data-loss risks before new features.
+        The repository has 75 automated unit and API tests and 61 browser test cases. Every change
+        shipped through its own branch and pull request, and audit passes produced fixes for
+        data-loss risks before new features.
       </p>
       <p data-reveal>
         Not verified: behavior of iPhone locked-screen notifications, which depends on the
