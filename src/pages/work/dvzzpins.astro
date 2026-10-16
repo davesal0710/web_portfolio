@@ -1,17 +1,14 @@
 ---
-import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
-import analytics from '../../assets/dvzz-analytics.png';
 
-// Orders per day, counted from the store's order export (aggregated, no customer data).
+// Orders per day for the first drop, counted from the store's order export (aggregated, no customer data).
 const firstDrop = { start: 'Jun 25, 2021', end: 'Jul 4', orders: [1, 0, 0, 40, 4, 3, 1, 4, 2, 1] };
-const secondDrop = { start: 'Feb 2, 2022', end: 'Feb 11', orders: [4, 1, 15, 3, 0, 1, 0, 0, 0, 0] };
-const peak = Math.max(...firstDrop.orders, ...secondDrop.orders);
+const peak = Math.max(...firstDrop.orders);
 ---
 
 <Base
   title="DvzzPins · David Salazar"
-  description="I ran DvzzPins, a Shopify pin store. Each drop drew a rush of orders: 40 in a single day, customers in 24 states, and designs that sold out completely."
+  description="I ran DvzzPins, a pin brand: I took my sketches to finished products with a designer and a manufacturer, then launched them as drops that sold out."
   current="work"
 >
   <div class="case">
@@ -19,48 +16,53 @@ const peak = Math.max(...firstDrop.orders, ...secondDrop.orders);
       <div class="col">
         <h1 data-reveal>DvzzPins</h1>
         <p class="lede" data-reveal>
-          A Shopify pin store I ran on my own. Every drop drew a rush: 40 orders in a single day,
-          and four designs that sold out completely.
+          A pin brand I ran on my own. I turned my sketches into finished products with a designer
+          and a manufacturer, then launched them as drops that sold out.
         </p>
         <dl class="spec" data-reveal>
           <dt>What</dt>
-          <dd>An online store selling enamel pins in limited drops, December 2020 to October 2022.</dd>
+          <dd>An online pin brand, December 2020 to October 2022.</dd>
           <dt>Role</dt>
-          <dd>Founder and only operator: product development, designers, suppliers, inventory, launches and customer messages.</dd>
-          <dt>Tools</dt>
-          <dd>Shopify, including its analytics and order exports.</dd>
-          <dt>Numbers</dt>
-          <dd>199 orders and 258 items to 156 customers in 24 US states. $3,760 in net sales.</dd>
+          <dd>Founder and only operator. I owned the vision, the design brief, the production and every launch.</dd>
+          <dt>Result</dt>
+          <dd>Four designs sold out completely. The first drop took 40 orders in a single day, and the store shipped to 156 customers in 24 states.</dd>
         </dl>
       </div>
     </header>
 
     <section>
       <div class="col">
-        <h2 data-reveal>What I did</h2>
+        <h2 data-reveal>From sketch to product</h2>
         <div class="runin">
           <p data-reveal>
-            <strong>Product development.</strong> I turned concepts into products with designers
-            and manufacturers. Each design went through a supplier proof that fixed the size,
-            quantity, enamel and plating type and color codes, and that carried a warning: any
-            change after the printing plates are made means a new setup or mold charge. That made
-            proof review the step where mistakes were cheapest to catch.
+            <strong>The vision.</strong> Every product started as my own sketch of a pin I wanted
+            to exist.
           </p>
           <p data-reveal>
-            <strong>Suppliers.</strong> I worked through specs and proofs with supplier GS-JJ,
-            negotiated a $50 credit on a repeat mold charge, and got quotes for a charm line.
+            <strong>The design.</strong> I worked with a designer to turn those sketches into
+            finished artwork. My job was to brief them, review what came back and say what to
+            change until it matched what I had pictured.
           </p>
           <p data-reveal>
-            <strong>Running the drops.</strong> I managed inventory, planned each launch and
-            answered customers, and used the store's data to see what sold and when.
+            <strong>The product.</strong> A manufacturer made the designs real. Before anything
+            was produced, I checked and approved a proof of each design: the size, colors, finish
+            and quantity.
+          </p>
+          <p data-reveal>
+            <strong>The launch.</strong> I released the pins as limited drops, managed inventory
+            and answered customers.
           </p>
         </div>
+        <p data-reveal>
+          It is the same loop I use in analysis work: a clear brief, a check of the output against
+          it, and approval only when it matches.
+        </p>
       </div>
     </section>
 
     <section class="band">
       <div class="col">
-        <h2 data-reveal>How the drops went</h2>
+        <h2 data-reveal>How the drops landed</h2>
         <p data-reveal>
           The first drop landed on June 28, 2021. The store took 40 orders that day, a fifth of
           every order it would ever receive, and 48 in its first six days.
@@ -74,60 +76,11 @@ const peak = Math.max(...firstDrop.orders, ...secondDrop.orders);
           <div class="columns-labels" aria-hidden="true"><span>{firstDrop.start}</span><span>{firstDrop.end}</span></div>
           <p class="figure-note">Orders per day, first drop.</p>
         </div>
-        <p data-reveal>
-          The next drops did the same. August 2021 brought 70 orders, with 19 on August 3 and 14 on
-          August 22. In February 2022, 15 orders came on a single day, and 23 of that month's 25
-          arrived in the first four days.
-        </p>
-        <div data-reveal>
-          <div class="columns-chart" role="img" aria-label={`Orders per day from ${secondDrop.start} to ${secondDrop.end}: ${secondDrop.orders.join(', ')}`}>
-            {secondDrop.orders.map((n) => (
-              <span style={`height:${(n / peak) * 100}%`}>{n >= 10 && <em>{n}</em>}</span>
-            ))}
-          </div>
-          <div class="columns-labels" aria-hidden="true"><span>{secondDrop.start}</span><span>{secondDrop.end}</span></div>
-          <p class="figure-note">Orders per day, February 2022 drop.</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="col">
-        <h2 data-reveal>Who showed up</h2>
         <ul data-reveal>
-          <li>156 customers in 24 US states, plus one order to Canada.</li>
-          <li>29 of those customers ordered more than once, and one ordered five times.</li>
-          <li>Four designs sold out completely, and 86.6% of products sold through overall.</li>
-          <li>Three products made up about 76% of the 258 items sold, across 11 products in total.</li>
-          <li>4,959 store sessions, with an average order value of $18.32.</li>
+          <li>Later drops followed the same pattern, including 15 orders in a single day in February 2022.</li>
+          <li>Four designs sold out completely.</li>
+          <li>Orders came from 156 customers in 24 states, and 29 of them came back to order again.</li>
         </ul>
-        <p data-reveal>
-          Most visitors arrived directly (about 73%) or from social media (about 20%), and only
-          about 3% came from search. That points to word of mouth and sharing around each drop, not
-          people searching for pins.
-        </p>
-        <figure class="wide-shot" data-reveal style="margin:1.5rem 0">
-          <Image
-            src={analytics}
-            alt="Shopify analytics for 2021 to 2022: total sales of $4,481, 199 orders and 4,959 store sessions, each with two large peaks in mid 2021 and a smaller one in early 2022"
-            widths={[640, 1000, 1400]}
-            sizes="(min-width: 40rem) 35rem, 92vw"
-          />
-          <figcaption class="figure-note">
-            Shopify analytics, January 2021 to December 2022. Each peak is a drop. Total sales
-            include shipping, so they are higher than net sales.
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section class="band">
-      <div class="col">
-        <h2 data-reveal>How it ended</h2>
-        <p data-reveal>
-          Orders tapered off after the February 2022 drop, and I closed the business in October
-          2022.
-        </p>
         <div class="actions" data-reveal>
           <a class="btn" href="/#work">Back to work</a>
           <a class="textlink" href="/#contact">Get in touch</a>
