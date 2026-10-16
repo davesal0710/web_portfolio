@@ -22,6 +22,12 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
         A workout planner and training log. I owned the product, and AI coding assistants wrote the
         code under my direction.
       </p>
+      <div class="brief" data-reveal>
+        <p><strong>Problem</strong>People who lift keep routines in notes, and trackers make them retype everything.</p>
+        <p><strong>What I did</strong>Defined the requirements, personas and acceptance criteria, and directed AI assistants to build it, backed by 75 tests, 61 browser cases and a 13-case validation matrix.</p>
+        <p><strong>Result</strong>A live, installable app. Validation found three defects, and all three are fixed. Real usage numbers are not in yet.</p>
+      </div>
+
       <div class="actions" data-reveal>
         <a class="btn" href="https://tetsugym.ai.studio" rel="noopener">Open the live app</a>
       </div>
@@ -180,7 +186,9 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
 
     <section>
 <div class="col">
-      <h2 data-reveal>Operations and security</h2>
+      <details class="fold" data-reveal>
+<summary><h2>Operations and security</h2></summary>
+<div class="fold-body">
       <p data-reveal>
         The public demo is anonymous and uses a free-tier AI key, so protecting it was a real
         operations problem.
@@ -209,11 +217,15 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
         mattered.
       </p>
 </div>
+</details>
+</div>
     </section>
 
     <section>
 <div class="col">
-      <h2 data-reveal>Measurement</h2>
+      <details class="fold" data-reveal>
+<summary><h2>Measurement</h2></summary>
+<div class="fold-body">
       <p data-reveal>
         I instrumented the app to answer product questions, then built the dashboard myself in
         PostHog's free tier. Events cover app opened, onboarding completed, workout completed,
@@ -228,7 +240,7 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
         when the AI import is used. The interface says so.
       </p>
       <p data-reveal>
-        Testing the instrumentation found a bug: a race condition sent the same events dozens of
+        Testing the instrumentation found a bug: a timing bug sent the same events dozens of
         times. I diagnosed it from the raw data, fixed it by serializing sends and giving each
         event a unique ID, and verified the fix against the live site with a scripted browser.
       </p>
@@ -239,6 +251,8 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
           figures here when there are real ones.
         </p>
       </div>
+</div>
+</details>
 </div>
     </section>
 

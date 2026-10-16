@@ -77,7 +77,7 @@ const tabs = [
 
       const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => {
         es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { rootMargin: '0px 0px -8% 0px' }) : null;
+      }, { rootMargin: '0px' }) : null;
       document.querySelectorAll('section, header.case-head').forEach((sec) => {
         sec.querySelectorAll('[data-reveal]').forEach((el, i) => {
           el.style.setProperty('--d', Math.min(i, 5) * 50 + 'ms');

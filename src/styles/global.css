@@ -24,7 +24,9 @@
   --font: 'Switzer', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-  --radius: 4px;
+  --radius: 8px;
+  --radius-lg: 14px;
+  --shadow: 0 1px 2px rgb(94 60 30 / 0.08), 0 10px 28px rgb(94 60 30 / 0.10);
   --nav-h: 4.25rem;
 
   --step-small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
@@ -64,7 +66,7 @@ body {
   font-family: var(--font);
   font-size: var(--step-body);
   line-height: 1.55;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -749,4 +751,105 @@ footer p {
   font-style: normal;
   font-size: var(--step-small);
   font-variant-numeric: tabular-nums;
+}
+
+/* craft pass: containers are softer than controls, depth is one tinted light source */
+.demo,
+.panel,
+.brief {
+  border-radius: var(--radius-lg);
+}
+.demo {
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.shots img,
+.slides img,
+.wide-shot img {
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+.band .demo {
+  background: var(--bg);
+}
+
+/* the brief: every case study opens with the same three lines, like a requirement */
+.brief {
+  background: var(--surface);
+  padding: 1.25rem 1.4rem;
+  margin: 1.75rem 0 0;
+}
+.brief p {
+  margin: 0 0 0.75rem;
+}
+.brief p:last-child {
+  margin-bottom: 0;
+}
+.brief strong {
+  display: block;
+  font-size: var(--step-small);
+  color: var(--muted);
+  font-weight: 500;
+  margin-bottom: 0.1rem;
+}
+
+/* compact work entries on home */
+.piece.compact h3 {
+  font-size: var(--step-lead);
+}
+.piece.compact + .piece.compact {
+  margin-top: 2.5rem;
+}
+.piece.compact p {
+  max-width: 34rem;
+}
+.piece.compact .textlink {
+  font-weight: 500;
+}
+
+/* long sections fold away so the page can be skimmed */
+details.fold {
+  margin: 0;
+}
+details.fold summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 2.75rem;
+}
+details.fold summary::-webkit-details-marker {
+  display: none;
+}
+details.fold summary h2 {
+  margin: 0;
+}
+details.fold summary::after {
+  content: '+';
+  font-size: var(--step-lead);
+  color: var(--muted);
+  transition: transform 200ms var(--ease-out);
+}
+details.fold[open] summary::after {
+  transform: rotate(45deg);
+}
+details.fold .fold-body {
+  padding-top: 1.5rem;
+}
+
+@media (max-width: 39.99rem) {
+  .shots:not(.four) figure:nth-child(3) {
+    display: none;
+  }
+  .shots:not(.four) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.textlink,
+.contact-lines a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
 }
