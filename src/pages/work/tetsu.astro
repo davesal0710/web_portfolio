@@ -1,0 +1,308 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import calendar from '../../assets/tetsu-calendar.png';
+import progress from '../../assets/tetsu-progress.png';
+import aiImport from '../../assets/tetsu-ai-import.png';
+import timer from '../../assets/tetsu-workout-timer.png';
+
+const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
+---
+
+<Base
+  title="Tetsu case study · David Salazar"
+  description="How I framed, specified and shipped Tetsu, a workout planner and training log, with AI coding assistants under my direction."
+  current="work"
+>
+  <div class="case">
+    <header class="case-head">
+<div class="col">
+      <h1 data-reveal>Tetsu</h1>
+      <p class="lede" data-reveal>
+        A workout planner and training log. I owned the product, and AI coding assistants wrote the
+        code under my direction.
+      </p>
+      <div class="actions" data-reveal>
+        <a class="btn" href="https://tetsugym.ai.studio" rel="noopener">Open the live app</a>
+      </div>
+      <dl class="spec" data-reveal>
+        <dt>What</dt>
+        <dd>Workout planner and training log. Installable web app, English and Spanish.</dd>
+        <dt>Role</dt>
+        <dd>Solo. Product owner: problem, requirements, acceptance criteria, review and release decisions.</dd>
+        <dt>Built with</dt>
+        <dd>React, TypeScript, Vite, Tailwind, Express and the Gemini API on the server. Code written by Codex and Claude Code from my direction.</dd>
+        <dt>Version</dt>
+        <dd>1.5.0, as of October 14, 2026. Hosted on a free tier.</dd>
+      </dl>
+</div>
+    </header>
+
+    <section>
+<div class="col">
+      <h2 data-reveal>The problem</h2>
+      <p data-reveal>
+        People who lift seriously keep their routines in notes apps and spreadsheets. Commercial
+        trackers ask them to re-enter everything through rigid templates, and they push one-rep-max
+        numbers even for exercises like cable lateral raises, where a one-rep max means nothing.
+        People either leave the tracker or stop logging.
+      </p>
+      <p data-reveal>
+        Three working personas shaped what the app does. They were written for design decisions.
+        They are not interview findings, and the project had no formal user research.
+      </p>
+      <div class="runin">
+        <p data-reveal>
+          <strong>The Starter</strong> wants to train consistently but doesn't know how to write a
+          routine, and quits apps that open on a blank page. Success is going from first launch to
+          a logged workout in one sitting. The app serves her with three-step onboarding and starter
+          templates, a month calendar with today's routine, one-tap set logging, a rest timer and a
+          shareable recap.
+        </p>
+        <p data-reveal>
+          <strong>The Migrator</strong> has a year of routines in notes and spreadsheets, written in
+          shorthand and mixing kg and lb. He won't retype them into forms and fears losing his
+          history. Success is a pasted routine appearing correctly on the first or second try, and
+          a restore never overwriting a day that already has data. The app serves him with paste-to-plan
+          import and a review screen, exact decimal and unit handling, JSON backup and restore with a
+          merge-or-replace preview, and CSV exports.
+        </p>
+        <p data-reveal>
+          <strong>The Progressor</strong> trains for 8 to 15 reps on dumbbells, cables and machines,
+          often with no signal, in English or Spanish. She wants to know the next load to try in
+          steps her gym actually has, and honest advice when she should hold. The app serves her
+          with planned-versus-actual logging, per-exercise history, a conservative progression
+          forecast with a plain-language reason for every hold or increase, and an offline install.
+        </p>
+      </div>
+</div>
+    </section>
+
+    <section>
+<div class="col">
+      <h2 data-reveal>What I built</h2>
+      <ul data-reveal>
+        <li>
+          Paste-to-plan import. A local parser handles common shapes, an optional Gemini endpoint
+          organizes harder text, and both feed a review screen, so nothing replaces the current plan
+          without the user seeing it first.
+        </li>
+        <li>A calendar and set-by-set logging, with notes, streaks and a shareable recap.</li>
+        <li>
+          A rest timer with per-exercise durations, opt-in sound and notifications, and protection
+          against stale alarms after the phone sleeps.
+        </li>
+        <li>
+          Progress forecasts using double progression: add reps until the top of the range, then add
+          load, in real gym increments including 1.25&nbsp;kg steps, projected at 1, 3, 6 and 12 months.
+        </li>
+        <li>
+          Data safety: full JSON backups, CSV exports, preserved unreadable history, and an
+          unsaved-backup option when saving fails.
+        </li>
+        <li>An offline-first install with an update banner and anonymous, opt-out usage analytics.</li>
+      </ul>
+      <div class="shots four" data-reveal>
+        <figure>
+          <Image src={calendar} alt="Tetsu's month calendar on a phone" {...shot} />
+          <figcaption>Calendar</figcaption>
+        </figure>
+        <figure>
+          <Image src={aiImport} alt="Tetsu's import screen, where a pasted routine is reviewed before saving" {...shot} />
+          <figcaption>Import and review</figcaption>
+        </figure>
+        <figure>
+          <Image src={progress} alt="Tetsu's progress tab, with history and advice for an exercise" {...shot} />
+          <figcaption>Progress and advice</figcaption>
+        </figure>
+        <figure>
+          <Image src={timer} alt="Tetsu's workout screen with the rest timer" {...shot} />
+          <figcaption>Workout and rest timer</figcaption>
+        </figure>
+      </div>
+</div>
+    </section>
+
+    <section>
+<div class="col">
+      <h2 data-reveal>My role</h2>
+      <p data-reveal>
+        I chose the problem, decided what to build and what to cut, wrote the acceptance criteria,
+        reviewed every change, decided release timing, and defined what “done” means, including the
+        validation and test evidence below. The code was written by AI coding assistants (Codex and
+        Claude Code) working from my direction, in a pull-request workflow where each fix or
+        feature had its own branch, tests and review. This is product ownership with AI-assisted
+        implementation, not hand-written code.
+      </p>
+</div>
+    </section>
+
+    <section>
+<div class="col">
+      <h2 data-reveal>Decisions and trade-offs</h2>
+      <div class="runin">
+        <p data-reveal>
+          <strong>Data stays in the browser, with no accounts.</strong> I considered a server
+          database with sign-in. Keeping data local removes sign-up friction and the privacy
+          burden, and the app works in a basement gym with no signal. The cost is no cross-device
+          sync, so backups are a first-class feature.
+        </p>
+        <p data-reveal>
+          <strong>Double progression instead of one-rep-max formulas.</strong> Those formulas come
+          from low-rep barbell lifts. They mislead for 8 to 15 rep isolation work and ignore that
+          dumbbells jump in fixed steps.
+        </p>
+        <p data-reveal>
+          <strong>Forecasts are heuristics, and the app says so.</strong> Nothing here is validated
+          against individual outcomes. Sparse, flat or declining histories produce “hold”, never
+          automatic gains.
+        </p>
+        <p data-reveal>
+          <strong>Review before replace on every import.</strong> AI output can be wrong. A
+          reviewable preview keeps the user in control and keeps failures cheap.
+        </p>
+        <p data-reveal>
+          <strong>The AI key lives on a server with hard limits</strong>, not on the device. That
+          keeps the key private and caps abuse and cost on a free tier.
+        </p>
+        <p data-reveal>
+          <strong>Analytics are on by default, with a notice and a one-tap off.</strong> Strict
+          opt-in would have produced almost no data. The trade-off is that default-on collection
+          may not satisfy EU-style consent rules. I flagged that and documented it.
+        </p>
+        <p data-reveal>
+          <strong>Test data is marked, not deleted.</strong> It's reversible, and the dashboard
+          simply starts counting at a cutoff date.
+        </p>
+      </div>
+</div>
+    </section>
+
+    <section>
+<div class="col">
+      <h2 data-reveal>Operations and security</h2>
+      <p data-reveal>
+        The public demo is anonymous and uses a free-tier AI key, so protecting it was a real
+        operations problem.
+      </p>
+      <ul data-reveal>
+        <li>
+          Usage guards: 3 AI parses per minute and 15 per day per client, 10 per minute and 100 per
+          day overall, at most 2 concurrent jobs, and a daily model budget.
+        </li>
+        <li>
+          Input and output bounds: 12,000 characters of routine text and 32&nbsp;KB request bodies. AI
+          output is validated on the server and in the browser, and unknown fields are discarded.
+        </li>
+        <li>
+          Trust boundaries: the server holds the key, requests can't supply their own, origins are
+          allowlisted exactly, and the production server serves only built assets.
+        </li>
+        <li>
+          Graceful degradation: if the AI service fails or is rate limited, logging, timers and
+          manual entry keep working.
+        </li>
+      </ul>
+      <p data-reveal>
+        The limits are honest ones. In-memory limits reset on restart and apply per instance, and a
+        determined attacker could still exhaust the free quota. The docs say what to add if that
+        mattered.
+      </p>
+</div>
+    </section>
+
+    <section>
+<div class="col">
+      <h2 data-reveal>Measurement</h2>
+      <p data-reveal>
+        I instrumented the app to answer product questions, then built the dashboard myself in
+        PostHog's free tier. Events cover app opened, onboarding completed, workout completed,
+        routine parsed (with AI success or failure), backup exported, app installed and progress
+        viewed. The dashboard shows daily active users, an open to onboarded to first-workout
+        funnel, retention, AI-parse success rate, workouts per week and feature usage.
+      </p>
+      <p data-reveal>
+        Privacy was part of the design: a random per-browser ID, no routine content, weights, notes
+        or names, a one-time notice, a Settings toggle that deletes the ID and any queued events,
+        and a privacy page. Pasted routine text is the one thing that leaves the device, and only
+        when the AI import is used. The interface says so.
+      </p>
+      <p data-reveal>
+        Testing the instrumentation found a bug: a race condition sent the same events dozens of
+        times. I diagnosed it from the raw data, fixed it by serializing sends and giving each
+        event a unique ID, and verified the fix against the live site with a scripted browser.
+      </p>
+      <div class="panel" data-reveal>
+        <p>
+          <strong>Usage results are not available yet.</strong> Development and test traffic was
+          excluded on purpose, and the dashboard counts real usage from October 15, 2026. I'll add
+          figures here when there are real ones.
+        </p>
+      </div>
+</div>
+    </section>
+
+    <section class="band">
+<div class="col">
+      <h2 data-reveal>Validation</h2>
+      <p data-reveal>
+        I ran a 13-case matrix of synthetic training histories against the live app: full sessions,
+        partial sessions, plateaus, declines, outliers, kg and lb conversion, edited prescriptions
+        and bodyweight exercises. It found three real defects: a rounding error that disagreed with
+        the advice text (1.25&nbsp;kg shown as 1.3), forecast points drawn for exercises where
+        forecasting isn't available, and advice that prescribed an average load nobody had
+        actually lifted. All three are fixed and covered by tests.
+      </p>
+      <p data-reveal>
+        The repository has 75 automated unit and API tests and 61 browser test cases across 20
+        Playwright suites, covering backup merge safety, history recovery, import units and
+        decimals, timer behavior, workout completion, PWA updates and the AI proxy's security
+        rules, none of which call the real AI. Every change shipped through its own branch and pull
+        request, and several audit passes produced fixes for data-loss risks before new features.
+      </p>
+      <p data-reveal>
+        Not verified: behavior of iPhone locked-screen notifications, which depends on the
+        platform.
+      </p>
+</div>
+    </section>
+
+    <section class="band">
+<div class="col">
+      <h2 data-reveal>What I'd do next</h2>
+      <p data-reveal>
+        Shared rate limiting if usage grows beyond one instance, optional sign-in for cross-device
+        sync, set-level analytics, and a decision on whether default-on analytics should become
+        opt-in for EU visitors.
+      </p>
+</div>
+    </section>
+
+    <section class="band">
+<div class="col">
+      <h2 data-reveal>What I learned</h2>
+      <div class="runin">
+        <p data-reveal>
+          <strong>Measure early, then audit the measurement.</strong> The first dashboard data was
+          wrong because of duplicate events. Looking at the raw data caught what the summary charts
+          hid.
+        </p>
+        <p data-reveal>
+          <strong>Write the limits down.</strong> Labeling heuristics, unverified platform behavior
+          and the free-tier abuse ceiling made the product easier to trust and easier to defend in
+          review.
+        </p>
+        <p data-reveal>
+          <strong>Reversible beats tidy.</strong> Marking test data and keeping the old events cost
+          nothing and avoided an irreversible mistake.
+        </p>
+      </div>
+      <div class="actions" data-reveal>
+        <a class="btn" href="https://tetsugym.ai.studio" rel="noopener">Open the live app</a>
+        <a class="textlink" href="/#work">Back to work</a>
+        <a class="textlink" href="/#contact">Get in touch</a>
+      </div>
+</div>
+    </section>
+  </div>
+</Base>
