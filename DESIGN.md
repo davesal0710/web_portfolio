@@ -49,9 +49,9 @@ typography:
     letterSpacing: "0"
 rounded:
   sm: "3px"
-  control: "8px"
-  image: "8px"
-  container: "14px"
+  control: "10px"
+  image: "10px"
+  container: "18px"
 spacing:
   tap: "44px"
   section-phone: "72px"
@@ -102,7 +102,7 @@ Visual rejections confirmed by the brief and the build: grain, gradients, glass,
 - Four warm neutrals plus one peach accent; no cool colors, no gradients.
 - Two grotesks: Cabinet Grotesk for voice, Switzer for reading.
 - Zero box-shadows; depth is tonal.
-- Two radius tiers: 8px for controls and media, 14px for containers.
+- Two radius tiers: 10px for controls and media, 18px for containers.
 - Motion is short and always gated for reduced motion and hover capability.
 
 ## Colors
@@ -164,7 +164,7 @@ There are no shadows anywhere in the build. Depth is tonal layering: cream page,
 
 ## Shapes
 
-Soft but not pill-shaped. Controls, media, tab bar, charts and small nodes use 8px. Large containers (demo card, brief card, panels, about photo) use 14px. The sliding pill and the tab links inside the tab bar use 3px so they nest inside the 8px bar. Column chart columns round only the top corners (8px 8px 0 0). Focus ring is a 2px cocoa outline with 3px offset.
+Soft but not pill-shaped. Controls, media, tab bar, charts and small nodes use 10px. Large containers (demo card, brief card, panels, about photo) use 18px. The sliding pill and the tab links inside the tab bar use 3px so they nest inside the 10px bar. Column chart columns round only the top corners (10px 10px 0 0). Focus ring is a 2px cocoa outline with 3px offset.
 
 ## Components
 
