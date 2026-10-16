@@ -1423,3 +1423,57 @@ html {
 .demo-gif img {
   margin-bottom: 0;
 }
+
+/* Warmth that follows the scroll. CSS only, no script. Longhands on purpose: the minifier folds them into a shorthand Chrome ignores. Browsers without scroll-driven animation keep the static page. */
+@property --bg {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #f8efe3;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    @keyframes page-warm {
+      to {
+        --bg: #f7e9d7;
+      }
+    }
+    @keyframes read-line {
+      to {
+        transform: scaleX(1);
+      }
+    }
+    @keyframes rule-draw {
+      from {
+        width: 0;
+      }
+    }
+    :root {
+      animation-name: page-warm;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll(root);
+    }
+    .nav-bar::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      animation-name: read-line;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll(root);
+    }
+    #work > .col > h2::before,
+    #about > .col > h2::before,
+    #contact > .col > h2::before {
+      animation-name: rule-draw;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 80%;
+    }
+  }
+}
