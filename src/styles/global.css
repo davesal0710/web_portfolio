@@ -1023,3 +1023,10 @@ details.fold summary h2 {
 .slides {
   max-width: 34rem;
 }
+
+@media (min-width: 64rem) {
+  #contact .statement {
+    font-size: var(--step-lead);
+    max-width: 24em;
+  }
+}
