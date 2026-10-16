@@ -1,0 +1,193 @@
+---
+import Base from '../../layouts/Base.astro';
+
+// Share of the overflow loop's unscheduled downtime by cause, June to July 2025.
+const causes = [
+  { label: 'Device not ready', pct: 47 },
+  { label: 'Jams', pct: 33 },
+  { label: 'Communication faults', pct: 9 },
+  { label: 'Motor faults', pct: 5 },
+  { label: 'Emergency stops', pct: 4 },
+  { label: 'Everything else', pct: 1 },
+];
+---
+
+<Base
+  title="Inbound bottleneck analysis · David Salazar"
+  description="How I used alarm and downtime data to find the cause of an inbound bottleneck at Amazon, and built a proposal with a business case, safety review and rollout plan."
+  current="work"
+>
+  <div class="case">
+    <header class="case-head">
+      <div class="col">
+        <h1 data-reveal>Bottleneck analysis</h1>
+        <p class="lede" data-reveal>
+          Two months of alarm data showed that one line stopping the whole system was also the
+          least reliable. I wrote up a way to fix it.
+        </p>
+        <dl class="spec" data-reveal>
+          <dt>Where</dt>
+          <dd>Amazon fulfillment site, Hazleton PA. Area Manager Intern, June to August 2025.</dd>
+          <dt>What</dt>
+          <dd>A proposal to reroute the inbound scan system, with data, cost, safety and a rollout plan. Developed with Operations, RME and IT, and presented to cross-functional stakeholders.</dd>
+          <dt>My role</dt>
+          <dd>I did the analysis, wrote the proposal and built the business case. It was a two-week project.</dd>
+          <dt>Note</dt>
+          <dd>Details are generalized for confidentiality. Figures are rounded, and the projections come from my own model.</dd>
+        </dl>
+      </div>
+    </header>
+
+    <section>
+      <div class="col">
+        <h2 data-reveal>The situation</h2>
+        <p data-reveal>
+          Inbound cartons go through a scan-and-induct system. It fed directly into an overflow
+          recirculation loop that was used as a relief valve, and that caused three problems.
+        </p>
+        <ul data-reveal>
+          <li>The recirculation loop jammed and stopped often, and every time it stopped the scan system backed up behind it.</li>
+          <li>The loop was congested at peak volume, when it was needed most.</li>
+          <li>A person had to stand at a manual diverter pushing cartons from the scan system into the loop, an indirect role on every shift.</li>
+        </ul>
+        <div class="flow" data-reveal>
+          <figure>
+            <figcaption>How it worked</figcaption>
+            <div class="row">
+              <span class="node">Scan system</span><span class="arrow">to</span>
+              <span class="node">Manual diverter</span><span class="arrow">to</span>
+              <span class="node bad">Overflow loop (stops often)</span>
+            </div>
+          </figure>
+          <figure>
+            <figcaption>What I proposed</figcaption>
+            <div class="row">
+              <span class="node">Scan system</span><span class="arrow">to</span>
+              <span class="node">Automatic feeder</span><span class="arrow">to</span>
+              <span class="node">Two low-stoppage lines</span>
+            </div>
+            <div class="row" style="margin-top:0.5rem">
+              <span class="node">Overflow loop, recirculation only</span>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="col">
+        <h2 data-reveal>What the data showed</h2>
+        <p data-reveal>
+          I pulled alarm and downtime records for June and July, the peak period. The overflow loop
+          logged about 1,400 alarms and roughly 85 hours of unscheduled downtime in two months.
+        </p>
+        <p data-reveal>
+          Two causes explained most of it, and both repeat. Device-not-ready alarms and jams
+          together made up about 80% of the lost time. That mattered because repeatable causes can
+          be designed around.
+        </p>
+        <ul class="bars" data-reveal aria-label="Share of overflow loop downtime by cause">
+          {causes.map((c) => (
+            <li>
+              <span>{c.label}</span>
+              <span class="track"><span class="fill" style={`width:${c.pct}%`}></span></span>
+              <span class="pct">{c.pct}%</span>
+            </li>
+          ))}
+        </ul>
+        <p class="figure-note" data-reveal>Share of the loop's unscheduled downtime by cause, June to July 2025, rounded.</p>
+        <p data-reveal>
+          I then looked at the two lines I wanted to reroute to. They were mostly used for
+          upstacking and were available for most of the shift. Over the same two months they logged
+          about 200 alarms and roughly 11 hours of downtime, about 87% less downtime than the
+          overflow loop, and the alarms were simpler. A third pair of lines carrying similar volume
+          showed about 56% less downtime than the loop, so volume alone did not explain the loop's
+          downtime.
+        </p>
+        <p data-reveal>
+          For a baseline I used average daily carton throughput across all shifts for the same
+          period. Every projection in the proposal is measured against that number.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <h2 data-reveal>The proposal</h2>
+        <div class="runin">
+          <p data-reveal>
+            <strong>Reroute the scan system to the two reliable lines.</strong> A flexible conveyor
+            section would connect the scan system to those lines, and an automatic feeder would
+            replace the manual diverter. The overflow loop would go back to being a dedicated
+            recirculation loop.
+          </p>
+          <p data-reveal>
+            <strong>Fix the floor space it needs.</strong> During floor walks I noticed single
+            destination and problem-solve pallets parked where the new path had to run. I proposed
+            a marked staging zone capped at six pallets, which matched the highest count I had
+            seen, and checked that the overflow area is only busy on high-volume days, so the
+            capacity loss was small.
+          </p>
+          <p data-reveal>
+            <strong>Move one process.</strong> Liquid items needed a different processing location
+            once the path changed, so the proposal named a second processing line for them and
+            called for a standard operating procedure update.
+          </p>
+          <p data-reveal>
+            <strong>Start temporary, then make it permanent.</strong> The plan was a temporary
+            setup first, tracking the same metrics against the baseline, then a permanent
+            installation once the numbers held up.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="col">
+        <h2 data-reveal>Safety</h2>
+        <p data-reveal>
+          The manual diverter role carried two risks I could point to, so the safety case sat next
+          to the cost case.
+        </p>
+        <ul data-reveal>
+          <li><strong>Ergonomics.</strong> Repetitive side-to-side pushing for long stretches, with injuries already seen in that role at the site.</li>
+          <li><strong>Hands near fast conveyors.</strong> The loop runs fast enough that associates pushing cartons could have their hands caught by oncoming boxes. An automatic feeder removes the manual pushing altogether.</li>
+        </ul>
+        <p data-reveal>
+          I also set clearances for the new path with the site's workplace health and safety
+          guidance, including a wider buffer where pallet jacks operate.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <h2 data-reveal>Cost and benefit</h2>
+        <p data-reveal>
+          The equipment was a flexible conveyor section and a feeder, a small cost next to the
+          labor it replaced. On my estimates the payback was under two months. I projected a 10 to
+          15% increase in throughput from less downtime, by lifting the scan system from the
+          baseline, and I counted the removed indirect role as the labor saving.
+        </p>
+        <p data-reveal>
+          These are projections. They depend on the overflow loop's downtime no longer reaching the
+          scan system, and I labeled them that way in the proposal.
+        </p>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="col">
+        <h2 data-reveal>Working with other teams</h2>
+        <p data-reveal>
+          The plan listed the approvals it needed up front: Operations and RME sign-off, equipment
+          quotes from RME, and a final safety check on the clearances. I developed it with input
+          from Operations, RME and IT, and I presented it to cross-functional stakeholders.</p>
+        <div class="actions" data-reveal>
+          <a class="btn" href="/#work">Back to work</a>
+          <a class="textlink" href="/#contact">Get in touch</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>

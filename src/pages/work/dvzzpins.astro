@@ -1,0 +1,121 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import analytics from '../../assets/dvzz-analytics.png';
+
+// Orders per month from the store's sales export (aggregated, no customer data).
+const months = [
+  ['Jun 2021', 48], ['Jul', 20], ['Aug', 70], ['Sep', 5], ['Oct', 2], ['Nov', 11], ['Dec', 0],
+  ['Jan 2022', 0], ['Feb', 25], ['Mar', 1], ['Apr', 6], ['May', 3], ['Jun', 0], ['Jul', 4],
+  ['Aug', 2], ['Sep', 1], ['Oct', 0], ['Nov', 1], ['Dec', 0],
+] as [string, number][];
+const max = Math.max(...months.map(([, n]) => n));
+---
+
+<Base
+  title="DvzzPins · David Salazar"
+  description="I ran DvzzPins, a Shopify pin store, from product development and supplier proofs to launches and customer messages. Here are the store's numbers and what they showed."
+  current="work"
+>
+  <div class="case">
+    <header class="case-head">
+      <div class="col">
+        <h1 data-reveal>DvzzPins</h1>
+        <p class="lede" data-reveal>
+          A Shopify store I ran on my own from December 2020 to October 2022, from product idea to
+          supplier proof to launch.
+        </p>
+        <dl class="spec" data-reveal>
+          <dt>What</dt>
+          <dd>An online store selling enamel pins.</dd>
+          <dt>Role</dt>
+          <dd>Founder and only operator: product development, designers, suppliers, inventory, launches and customer messages.</dd>
+          <dt>Tools</dt>
+          <dd>Shopify, including its analytics and order exports.</dd>
+          <dt>Numbers</dt>
+          <dd>199 orders and $3,760 in net sales from January 2021 to December 2022.</dd>
+        </dl>
+      </div>
+    </header>
+
+    <section>
+      <div class="col">
+        <h2 data-reveal>What I did</h2>
+        <div class="runin">
+          <p data-reveal>
+            <strong>Product development.</strong> I turned concepts into products with designers
+            and manufacturers. Each design went through a supplier proof that fixed the size,
+            quantity, enamel and plating type and color codes, and that carried a warning: any
+            change after the printing plates are made means a new setup or mold charge. That made
+            proof review the step where mistakes were cheapest to catch.
+          </p>
+          <p data-reveal>
+            <strong>Suppliers.</strong> I worked through specs and proofs with supplier GS-JJ,
+            negotiated a $50 credit on a repeat mold charge, and got quotes for a charm line.
+          </p>
+          <p data-reveal>
+            <strong>Running the store.</strong> I managed inventory, planned launches and answered
+            customers. I used the store's data to see what sold and when.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="col">
+        <h2 data-reveal>The numbers</h2>
+        <p data-reveal>
+          This is the Shopify analytics view for January 2021 to December 2022. The store's first
+          orders came in June 2021.
+        </p>
+        <figure class="wide-shot" data-reveal style="margin:1.5rem 0">
+          <Image
+            src={analytics}
+            alt="Shopify analytics for 2021 to 2022: total sales of $4,481, 199 orders and 4,959 store sessions, each with two large peaks in mid 2021 and one smaller peak in early 2022"
+            widths={[640, 1000, 1400]}
+            sizes="(min-width: 40rem) 35rem, 92vw"
+          />
+          <figcaption class="figure-note">
+            Total sales include shipping, which is why they are higher than net sales.
+          </figcaption>
+        </figure>
+        <ul data-reveal>
+          <li>199 orders, $3,760 in net sales and $4,481 in total sales including shipping.</li>
+          <li>4,959 store sessions and an average order value of $18.32.</li>
+          <li>86.6% product sell-through, with several designs selling out completely.</li>
+          <li>14.8% of customers came back to order again.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="col">
+        <h2 data-reveal>What the data showed</h2>
+        <p data-reveal>
+          Orders came in bursts around launches. The first three months, June to August 2021,
+          brought 138 of the 199 orders, and a second drop in February 2022 brought 25 more. Between
+          launches, orders fell off quickly.
+        </p>
+        <div data-reveal>
+          <div class="columns-chart" role="img" aria-label="Orders per month from June 2021 to December 2022: 48, 20, 70, 5, 2, 11, 0, 0, 25, 1, 6, 3, 0, 4, 2, 1, 0, 1, 0">
+            {months.map(([label, n]) => (
+              <span style={`height:${(n / max) * 100}%`} title={`${label}: ${n} orders`}></span>
+            ))}
+          </div>
+          <div class="columns-labels" aria-hidden="true">
+            <span>Jun 2021</span><span>Feb 2022</span><span>Dec 2022</span>
+          </div>
+          <p class="figure-note">Orders per month, from the store's sales export.</p>
+        </div>
+        <p data-reveal>
+          For a store like this, that means the outcome depends on how well each launch is planned
+          and on whether first-time buyers come back. About one in seven did.
+        </p>
+        <div class="actions" data-reveal>
+          <a class="btn" href="/#work">Back to work</a>
+          <a class="textlink" href="/#contact">Get in touch</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>

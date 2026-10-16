@@ -26,7 +26,7 @@ const tabs = [
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta name="theme-color" content="#ebe6db" />
+    <meta name="theme-color" content="#f8efe3" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" href="/fonts/switzer-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/switzer-500.woff2" as="font" type="font/woff2" crossorigin />
@@ -66,8 +66,7 @@ const tabs = [
         });
         const a = links.find((l) => l.dataset.tab === id);
         if (!a) return;
-        tabs.style.setProperty('--x', a.offsetLeft + 'px');
-        tabs.style.setProperty('--s', String(a.offsetWidth / 100));
+        pill.style.transform = `translateX(${a.offsetLeft}px) scaleX(${a.offsetWidth / 100})`;
       }
       const active = () => links.find((a) => a.hasAttribute('aria-current'))?.dataset.tab;
 
@@ -81,7 +80,7 @@ const tabs = [
       }, { rootMargin: '0px 0px -8% 0px' }) : null;
       document.querySelectorAll('section, header.case-head').forEach((sec) => {
         sec.querySelectorAll('[data-reveal]').forEach((el, i) => {
-          el.style.setProperty('--d', Math.min(i, 5) * 70 + 'ms');
+          el.style.setProperty('--d', Math.min(i, 5) * 50 + 'ms');
           if (!io || el.getBoundingClientRect().top < innerHeight * 0.9) {
             el.style.transition = 'none';
             el.classList.add('in');

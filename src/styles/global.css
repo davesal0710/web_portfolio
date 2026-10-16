@@ -14,15 +14,16 @@
 }
 
 :root {
-  --bg: #ebe6db;
-  --surface: #ded7c8;
-  --step: #d0c8b4;
-  --ink: #2a2520;
-  --muted: #5c5347;
-  --accent: #3f5a3a;
-  --accent-ink: #f6f1e6;
+  --bg: #f8efe3;
+  --surface: #f1e1cd;
+  --step: #f2c6a4;
+  --ink: #2e2218;
+  --muted: #6a5443;
+  --accent: #e9976a;
+  --accent-ink: #2e2218;
   --font: 'Switzer', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --radius: 4px;
   --nav-h: 4.25rem;
 
@@ -134,9 +135,13 @@ body {
   font-size: var(--step-small);
   transition: color 150ms var(--ease-out);
 }
-.tabs a:hover,
 .tabs a[aria-current] {
   color: var(--ink);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tabs a:hover {
+    color: var(--ink);
+  }
 }
 .tabs a[aria-current] {
   font-weight: 500;
@@ -149,7 +154,7 @@ body {
   left: 0;
   width: 100px;
   transform-origin: left center;
-  transform: translateX(var(--x, 0)) scaleX(var(--s, 0));
+  transform: scaleX(0);
   background: var(--step);
   border-radius: 3px;
   opacity: 0;
@@ -159,7 +164,7 @@ body {
 }
 @media (prefers-reduced-motion: no-preference) {
   .js .tabs .pill.ready {
-    transition: transform 280ms var(--ease-out);
+    transition: transform 240ms var(--ease-in-out);
   }
 }
 @media (max-width: 23rem) {
@@ -260,8 +265,10 @@ section {
   font-weight: 500;
   transition: transform 140ms var(--ease-out), background-color 140ms var(--ease-out);
 }
-.btn:hover {
-  background: #334b2f;
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    background: #de8458;
+  }
 }
 .btn:active {
   transform: scale(0.97);
@@ -297,8 +304,10 @@ section {
   cursor: pointer;
   transition: background-color 150ms var(--ease-out), color 150ms var(--ease-out);
 }
-.demo .seg button:hover {
-  color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .demo .seg button:hover {
+    color: var(--ink);
+  }
 }
 .demo .seg button[aria-pressed='true'] {
   background: var(--step);
@@ -606,11 +615,127 @@ footer p {
   .js [data-reveal] {
     opacity: 0;
     transform: translateY(14px);
-    transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out);
+    transition: opacity 320ms var(--ease-out), transform 320ms var(--ease-out);
     transition-delay: var(--d, 0ms);
   }
   .js [data-reveal].in {
     opacity: 1;
     transform: none;
   }
+}
+
+/* case study figures: bar charts and a small flow diagram, drawn from the page's own tokens */
+.bars {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+.bars li {
+  display: grid;
+  grid-template-columns: minmax(7rem, 10rem) 1fr 3rem;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  max-width: none;
+}
+.bars .track {
+  height: 1.25rem;
+  background: var(--bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.bars .fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: var(--radius);
+}
+.bars .pct {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.figure-note {
+  color: var(--muted);
+  font-size: var(--step-small);
+  margin-top: 0.5rem;
+}
+.columns-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.35rem;
+  height: 9rem;
+  margin: 1.5rem 0 0.5rem;
+}
+.columns-chart span {
+  flex: 1;
+  background: var(--accent);
+  border-radius: var(--radius) var(--radius) 0 0;
+  min-height: 2px;
+}
+.columns-labels {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: var(--step-small);
+}
+.flow {
+  display: grid;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+.flow figure {
+  margin: 0;
+}
+.flow .row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.flow .node {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.9rem;
+  font-size: var(--step-small);
+}
+.flow .node.bad {
+  background: var(--step);
+}
+.flow .arrow {
+  color: var(--muted);
+}
+.flow figcaption {
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+}
+.slides {
+  display: grid;
+  gap: 1.5rem;
+  margin: 1.75rem 0;
+}
+.slides figure {
+  margin: 0;
+}
+.slides img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+.slides figcaption {
+  color: var(--muted);
+  font-size: var(--step-small);
+  margin-top: 0.5rem;
+}
+.wide-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.band .panel {
+  background: var(--bg);
 }
