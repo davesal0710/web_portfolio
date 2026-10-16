@@ -28,7 +28,7 @@ const full = {
         <Image src={headshot} alt="" width={56} height={56} densities={[1, 2]} loading="eager" />
         <p>
           <strong>David Salazar</strong>
-          New York · open to analyst, implementation and automation roles
+          New York · open to business analyst, implementation and automation roles
         </p>
       </div>
       <h1 data-reveal>Clear requirements from messy problems.</h1>
@@ -40,8 +40,12 @@ const full = {
       <div class="actions" data-reveal>
         <a class="btn" href="/work/tetsu/">Read the Tetsu case study</a>
         <a class="textlink" href="mailto:davesal0710@gmail.com">Email me</a>
-        <a class="textlink" href="/David_Salazar_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+        <a class="btn soft" href="/David_Salazar_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
       </div>
+      <a class="hero-shot" href="/work/tetsu/" data-reveal>
+        <Image src={aiImport} alt="Tetsu’s import screen: a pasted routine organized and ready to review" widths={[160, 240, 320]} sizes="9rem" loading="eager" />
+        <span>Tetsu, my workout app: paste a routine, review it, then save. Read the case study.</span>
+      </a>
 
       <div class="demo" data-ui data-reveal>
         <p class="label muted small" style="margin:0 0 0.75rem">How I write a requirement, using Tetsu. Written for this page from the case study.</p>
@@ -131,14 +135,14 @@ const full = {
           <Image class="logo" src={logo} alt="The Tetsu logo" widths={[400, 800]} sizes="(min-width: 64rem) 31rem, 92vw" />
         </div>
         <ul data-reveal>
-          <li>75 automated tests and 61 browser test cases.</li>
           <li>
             The AI import tries a local parser first, caps usage, checks the AI’s output and always
             ends on a review screen.
           </li>
           <li>
-            A 13-case validation matrix of synthetic training histories found three defects in the
-            live app. They are fixed and covered by tests.
+            Backed by 75 automated tests, 61 browser test cases and a 13-case validation matrix of
+            synthetic training histories that found three defects in the live app. All three are
+            fixed and covered by tests.
           </li>
           <li>
             Usage analytics and a PostHog dashboard are set up. Real usage numbers aren’t in yet, so
