@@ -105,7 +105,8 @@ const tabs = [
       {
         const native = CSS.supports('animation-timeline: scroll()');
         const root = document.documentElement;
-        const meta = document.querySelector('meta[name="theme-color"]');
+        let meta = document.querySelector('meta[name="theme-color"]');
+        let lastHex = '';
         const from = [248, 239, 227];
         const to = [251, 226, 203];
         let queued = false;
@@ -115,7 +116,16 @@ const tabs = [
           const p = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
           const c = from.map((v, i) => Math.round(v + (to[i] - v) * p));
           root.style.backgroundColor = `rgb(${c.join(',')})`;
-          meta?.setAttribute('content', '#' + c.map((v) => v.toString(16).padStart(2, '0')).join(''));
+          const hex = '#' + c.map((v) => v.toString(16).padStart(2, '0')).join('');
+          if (hex !== lastHex && meta) {
+            lastHex = hex;
+            // Safari re-reads the toolbar colour when the tag is replaced, not when its value changes.
+            const fresh = document.createElement('meta');
+            fresh.name = 'theme-color';
+            fresh.content = hex;
+            meta.replaceWith(fresh);
+            meta = fresh;
+          }
           if (!native) root.style.setProperty('--p', String(p));
         };
         addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
