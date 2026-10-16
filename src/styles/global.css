@@ -775,7 +775,7 @@ footer p {
 .shots img,
 .slides img,
 .wide-shot img {
-  border-radius: 10px;
+  border-radius: var(--radius);
 }
 .band .demo {
   background: var(--bg);
