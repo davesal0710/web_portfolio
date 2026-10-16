@@ -140,6 +140,17 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
         </li>
         <li>The user sees a review screen. Nothing replaces the current plan until they confirm.</li>
       </ol>
+      <figure class="demo-gif" data-reveal>
+        <img
+          src="/tetsu-import-poster.png"
+          width="320"
+          height="696"
+          alt="Tetsu's import screen: a pasted routine is organized, then shown on a review screen with its weights intact, before anything is replaced"
+          data-gif="/tetsu-import.gif"
+        />
+        <button type="button" class="btn" hidden data-play>Play the import</button>
+        <figcaption>A made-up routine, pasted, organized and reviewed. Waiting time is shortened.</figcaption>
+      </figure>
       <div class="runin">
         <p data-reveal>
           <strong>Limits.</strong> 3 AI parses per minute and 15 per day per person, and a daily
@@ -342,4 +353,20 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
 </div>
     </section>
   </div>
+  <script>
+    const fig = document.querySelector('.demo-gif');
+    const btn = fig?.querySelector<HTMLButtonElement>('[data-play]');
+    const img = fig?.querySelector<HTMLImageElement>('img');
+    if (fig && btn && img) {
+      const poster = img.getAttribute('src') ?? '';
+      const gif = img.dataset.gif ?? '';
+      btn.hidden = false;
+      let playing = false;
+      btn.addEventListener('click', () => {
+        playing = !playing;
+        img.src = playing ? gif + '?t=' + Date.now() : poster;
+        btn.textContent = playing ? 'Stop' : 'Play the import';
+      });
+    }
+  </script>
 </Base>
