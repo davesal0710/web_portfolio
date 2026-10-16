@@ -142,11 +142,12 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
       </ol>
       <figure class="demo-gif" data-reveal>
         <img
-          src="/tetsu-import-poster.png"
+          src="/tetsu-import.gif"
           width="320"
           height="696"
           alt="Tetsu's import screen: a pasted routine is organized, then shown on a review screen with its weights intact, before anything is replaced"
-          data-gif="/tetsu-import.gif"
+          loading="lazy"
+          data-poster="/tetsu-import-poster.png"
         />
         <button type="button" class="btn" hidden data-play>Play the import</button>
         <figcaption>A made-up routine, pasted, organized and reviewed. Waiting time is shortened.</figcaption>
@@ -354,14 +355,16 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
     </section>
   </div>
   <script>
+    // The clip plays on its own. People who ask for reduced motion get a still image and a Play button.
     const fig = document.querySelector('.demo-gif');
     const btn = fig?.querySelector<HTMLButtonElement>('[data-play]');
     const img = fig?.querySelector<HTMLImageElement>('img');
-    if (fig && btn && img) {
-      const poster = img.getAttribute('src') ?? '';
-      const gif = img.dataset.gif ?? '';
-      btn.hidden = false;
+    if (btn && img && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const gif = img.getAttribute('src') ?? '';
+      const poster = img.dataset.poster ?? '';
       let playing = false;
+      img.src = poster;
+      btn.hidden = false;
       btn.addEventListener('click', () => {
         playing = !playing;
         img.src = playing ? gif + '?t=' + Date.now() : poster;
