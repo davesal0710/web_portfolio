@@ -542,7 +542,7 @@ footer p {
   padding-top: clamp(1.5rem, 7vh, 4rem);
 }
 .case-head h1 {
-  font-size: clamp(3.5rem, 2rem + 6vw, 6rem);
+  font-size: clamp(3rem, 2rem + 4vw, 5rem);
   line-height: 1;
   letter-spacing: -0.04em;
 }
@@ -879,6 +879,7 @@ details.fold .fold-body {
     column-gap: 5rem;
     align-items: start;
   }
+  .hero .col > .who,
   .hero .col > h1,
   .hero .col > p,
   .hero .col > .actions {
@@ -890,7 +891,7 @@ details.fold .fold-body {
   }
   .hero .col > .demo {
     grid-column: 2;
-    grid-row: 1 / span 3;
+    grid-row: 1 / span 4;
     margin-top: 0;
   }
 
@@ -981,12 +982,13 @@ details.fold .fold-body {
   }
   .case-head .col > h1,
   .case-head .col > .lede,
-  .case-head .col > .actions {
+  .case-head .col > .actions,
+  .case-head .col > .logo {
     grid-column: 1;
   }
   .case-head .col > .brief {
     grid-column: 2;
-    grid-row: 1 / span 3;
+    grid-row: 1 / span 4;
     margin-top: 0;
   }
   .case-head .col > .spec {
@@ -1223,12 +1225,122 @@ h3,
   overflow-wrap: anywhere;
 }
 .case-head h1 {
-  font-size: clamp(2.5rem, 1.5rem + 6vw, 6rem);
+  font-size: clamp(2.5rem, 1.5rem + 4vw, 5rem);
 }
 
 @media (min-width: 64rem) {
   /* the demo card is as tall as its longest pane, so extra height goes to the last row, not between the lines */
   .hero .col {
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto auto auto 1fr;
   }
+}
+
+/* hero: a face and a status line before the headline */
+.who {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0 0 1.5rem;
+}
+.who img {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.hero .who p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--step-small);
+  line-height: 1.35;
+}
+.who strong {
+  display: block;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* Tetsu header: logo banner fills the left column, spec list is a quiet footnote strip */
+.case-head .logo {
+  display: block;
+  width: min(100%, 22rem);
+  height: auto;
+  margin: 2rem 0 0;
+  border-radius: var(--radius-lg);
+}
+.case-head .spec {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--step);
+  font-size: var(--step-small);
+}
+@media (min-width: 64rem) {
+  .case-head .col {
+    grid-template-rows: auto auto auto 1fr;
+  }
+  .case-head .col > .spec {
+    grid-row: 5;
+    margin-top: 1.25rem;
+  }
+  .case-head .col > .logo {
+    margin-top: 2.5rem;
+  }
+}
+
+/* sections: a short accent rule marks each heading on the home page */
+#work > .col > h2,
+#about > .col > h2,
+#contact > .col > h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+#work > .col > h2::before,
+#about > .col > h2::before,
+#contact > .col > h2::before {
+  content: '';
+  width: 1.75rem;
+  height: 3px;
+  background: var(--accent);
+}
+
+/* phones: the primary button spans the row, the two text links share the next one */
+@media (max-width: 39.99rem) {
+  .hero .actions {
+    gap: 0 1.75rem;
+  }
+  .hero .actions .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+
+/* small touches */
+html {
+  scrollbar-color: var(--accent) var(--bg);
+}
+.textlink,
+.contact-lines a,
+.big {
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .textlink,
+  .contact-lines a,
+  .big {
+    transition: text-decoration-color 140ms var(--ease-out);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .textlink:hover,
+  .big:hover {
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--accent-hover);
+  }
+}
+.demo .seg button:active,
+.tabs a:active {
+  transform: scale(0.97);
 }
