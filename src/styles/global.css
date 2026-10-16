@@ -121,8 +121,8 @@ body {
 
 /* nav */
 .nav-bar {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  inset: 0 0 auto;
   z-index: 5;
   height: var(--nav-h);
   padding-top: env(safe-area-inset-top, 0px);
@@ -1432,16 +1432,7 @@ html {
    --p (0 to 1) is the scroll progress. Browsers with scroll-driven animation use it natively; the rest get it from a small script in Base.astro.
    It is a tone change and a thin progress line, not travel, so it also runs when reduced motion is on.
    Longhands on purpose: the minifier folds them into a shorthand Chrome ignores. */
-/* The page colour itself is the html background, lerped by the script in Base.astro. The nav bar is its own solid bar, so it carries a matching overlay. */
-.nav-bar::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: #fbe2cb;
-  opacity: var(--p, 0);
-  pointer-events: none;
-}
+/* The page colour is the html background and the nav bar's own background; both are lerped by the script in Base.astro. */
 .nav-bar::after {
   content: '';
   position: absolute;
@@ -1467,13 +1458,6 @@ html {
   }
 }
 @supports (animation-timeline: scroll()) {
-  .nav-bar::before {
-    opacity: 0;
-    animation-name: warm-in;
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-    animation-timeline: scroll(root);
-  }
   .nav-bar::after {
     transform: scaleX(0);
     animation-name: read-line;
@@ -1742,6 +1726,7 @@ dialog.lightbox::backdrop {
 
 /* The page runs under the phone's status bar and toolbar (viewport-fit=cover), so the bars take their colour from the tinted nav bar and page. Keep content out of the notch and home-indicator areas. */
 body {
+  padding-top: var(--nav-h);
   padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
