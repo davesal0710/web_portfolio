@@ -3,18 +3,15 @@ import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import analytics from '../../assets/dvzz-analytics.png';
 
-// Orders per month from the store's sales export (aggregated, no customer data).
-const months = [
-  ['Jun 2021', 48], ['Jul', 20], ['Aug', 70], ['Sep', 5], ['Oct', 2], ['Nov', 11], ['Dec', 0],
-  ['Jan 2022', 0], ['Feb', 25], ['Mar', 1], ['Apr', 6], ['May', 3], ['Jun', 0], ['Jul', 4],
-  ['Aug', 2], ['Sep', 1], ['Oct', 0], ['Nov', 1], ['Dec', 0],
-] as [string, number][];
-const max = Math.max(...months.map(([, n]) => n));
+// Orders per day, counted from the store's order export (aggregated, no customer data).
+const firstDrop = { start: 'Jun 25, 2021', end: 'Jul 4', orders: [1, 0, 0, 40, 4, 3, 1, 4, 2, 1] };
+const secondDrop = { start: 'Feb 2, 2022', end: 'Feb 11', orders: [4, 1, 15, 3, 0, 1, 0, 0, 0, 0] };
+const peak = Math.max(...firstDrop.orders, ...secondDrop.orders);
 ---
 
 <Base
   title="DvzzPins · David Salazar"
-  description="I ran DvzzPins, a Shopify pin store, from product development and supplier proofs to launches and customer messages. Here are the store's numbers and what they showed."
+  description="I ran DvzzPins, a Shopify pin store. Each drop drew a rush of orders: 40 in a single day, customers in 24 states, and designs that sold out completely."
   current="work"
 >
   <div class="case">
@@ -22,18 +19,18 @@ const max = Math.max(...months.map(([, n]) => n));
       <div class="col">
         <h1 data-reveal>DvzzPins</h1>
         <p class="lede" data-reveal>
-          A Shopify store I ran on my own from December 2020 to October 2022, from product idea to
-          supplier proof to launch.
+          A Shopify pin store I ran on my own. Every drop drew a rush: 40 orders in a single day,
+          and four designs that sold out completely.
         </p>
         <dl class="spec" data-reveal>
           <dt>What</dt>
-          <dd>An online store selling enamel pins.</dd>
+          <dd>An online store selling enamel pins in limited drops, December 2020 to October 2022.</dd>
           <dt>Role</dt>
           <dd>Founder and only operator: product development, designers, suppliers, inventory, launches and customer messages.</dd>
           <dt>Tools</dt>
           <dd>Shopify, including its analytics and order exports.</dd>
           <dt>Numbers</dt>
-          <dd>199 orders and $3,760 in net sales from January 2021 to December 2022.</dd>
+          <dd>199 orders and 258 items to 156 customers in 24 US states. $3,760 in net sales.</dd>
         </dl>
       </div>
     </header>
@@ -54,8 +51,8 @@ const max = Math.max(...months.map(([, n]) => n));
             negotiated a $50 credit on a repeat mold charge, and got quotes for a charm line.
           </p>
           <p data-reveal>
-            <strong>Running the store.</strong> I managed inventory, planned launches and answered
-            customers. I used the store's data to see what sold and when.
+            <strong>Running the drops.</strong> I managed inventory, planned each launch and
+            answered customers, and used the store's data to see what sold and when.
           </p>
         </div>
       </div>
@@ -63,53 +60,73 @@ const max = Math.max(...months.map(([, n]) => n));
 
     <section class="band">
       <div class="col">
-        <h2 data-reveal>The numbers</h2>
+        <h2 data-reveal>How the drops went</h2>
         <p data-reveal>
-          This is the Shopify analytics view for January 2021 to December 2022. The store's first
-          orders came in June 2021.
+          The first drop landed on June 28, 2021. The store took 40 orders that day, a fifth of
+          every order it would ever receive, and 48 in its first six days.
         </p>
-        <figure class="wide-shot" data-reveal style="margin:1.5rem 0">
-          <Image
-            src={analytics}
-            alt="Shopify analytics for 2021 to 2022: total sales of $4,481, 199 orders and 4,959 store sessions, each with two large peaks in mid 2021 and one smaller peak in early 2022"
-            widths={[640, 1000, 1400]}
-            sizes="(min-width: 40rem) 35rem, 92vw"
-          />
-          <figcaption class="figure-note">
-            Total sales include shipping, which is why they are higher than net sales.
-          </figcaption>
-        </figure>
-        <ul data-reveal>
-          <li>199 orders, $3,760 in net sales and $4,481 in total sales including shipping.</li>
-          <li>4,959 store sessions and an average order value of $18.32.</li>
-          <li>86.6% product sell-through, with several designs selling out completely.</li>
-          <li>14.8% of customers came back to order again.</li>
-        </ul>
+        <div data-reveal>
+          <div class="columns-chart" role="img" aria-label={`Orders per day from ${firstDrop.start} to ${firstDrop.end}: ${firstDrop.orders.join(', ')}`}>
+            {firstDrop.orders.map((n) => (
+              <span style={`height:${(n / peak) * 100}%`}>{n >= 10 && <em>{n}</em>}</span>
+            ))}
+          </div>
+          <div class="columns-labels" aria-hidden="true"><span>{firstDrop.start}</span><span>{firstDrop.end}</span></div>
+          <p class="figure-note">Orders per day, first drop.</p>
+        </div>
+        <p data-reveal>
+          The next drops did the same. August 2021 brought 70 orders, with 19 on August 3 and 14 on
+          August 22. In February 2022, 15 orders came on a single day, and 23 of that month's 25
+          arrived in the first four days.
+        </p>
+        <div data-reveal>
+          <div class="columns-chart" role="img" aria-label={`Orders per day from ${secondDrop.start} to ${secondDrop.end}: ${secondDrop.orders.join(', ')}`}>
+            {secondDrop.orders.map((n) => (
+              <span style={`height:${(n / peak) * 100}%`}>{n >= 10 && <em>{n}</em>}</span>
+            ))}
+          </div>
+          <div class="columns-labels" aria-hidden="true"><span>{secondDrop.start}</span><span>{secondDrop.end}</span></div>
+          <p class="figure-note">Orders per day, February 2022 drop.</p>
+        </div>
       </div>
     </section>
 
     <section>
       <div class="col">
-        <h2 data-reveal>What the data showed</h2>
+        <h2 data-reveal>Who showed up</h2>
+        <ul data-reveal>
+          <li>156 customers in 24 US states, plus one order to Canada.</li>
+          <li>29 of those customers ordered more than once, and one ordered five times.</li>
+          <li>Four designs sold out completely, and 86.6% of products sold through overall.</li>
+          <li>Three products made up about 76% of the 258 items sold, across 11 products in total.</li>
+          <li>4,959 store sessions, with an average order value of $18.32.</li>
+        </ul>
         <p data-reveal>
-          Orders came in bursts around launches. The first three months, June to August 2021,
-          brought 138 of the 199 orders, and a second drop in February 2022 brought 25 more. Between
-          launches, orders fell off quickly.
+          Most visitors arrived directly (about 73%) or from social media (about 20%), and only
+          about 3% came from search. That points to word of mouth and sharing around each drop, not
+          people searching for pins.
         </p>
-        <div data-reveal>
-          <div class="columns-chart" role="img" aria-label="Orders per month from June 2021 to December 2022: 48, 20, 70, 5, 2, 11, 0, 0, 25, 1, 6, 3, 0, 4, 2, 1, 0, 1, 0">
-            {months.map(([label, n]) => (
-              <span style={`height:${(n / max) * 100}%`} title={`${label}: ${n} orders`}></span>
-            ))}
-          </div>
-          <div class="columns-labels" aria-hidden="true">
-            <span>Jun 2021</span><span>Feb 2022</span><span>Dec 2022</span>
-          </div>
-          <p class="figure-note">Orders per month, from the store's sales export.</p>
-        </div>
+        <figure class="wide-shot" data-reveal style="margin:1.5rem 0">
+          <Image
+            src={analytics}
+            alt="Shopify analytics for 2021 to 2022: total sales of $4,481, 199 orders and 4,959 store sessions, each with two large peaks in mid 2021 and a smaller one in early 2022"
+            widths={[640, 1000, 1400]}
+            sizes="(min-width: 40rem) 35rem, 92vw"
+          />
+          <figcaption class="figure-note">
+            Shopify analytics, January 2021 to December 2022. Each peak is a drop. Total sales
+            include shipping, so they are higher than net sales.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="col">
+        <h2 data-reveal>How it ended</h2>
         <p data-reveal>
-          For a store like this, that means the outcome depends on how well each launch is planned
-          and on whether first-time buyers come back. About one in seven did.
+          Orders tapered off after the February 2022 drop, and I closed the business in October
+          2022.
         </p>
         <div class="actions" data-reveal>
           <a class="btn" href="/#work">Back to work</a>
