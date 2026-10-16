@@ -98,14 +98,23 @@ const tabs = [
         });
       });
 
-      // Scroll progress for the page warmth, only where CSS scroll-driven animation is missing (Firefox, older Safari).
-      if (!CSS.supports('animation-timeline: scroll()')) {
-        let queued = false;
+      // Scroll progress for the page warmth. It also tints the area behind the phone's status and toolbars (page background and theme-color),
+      // which CSS on the page cannot reach. --p is only set here where CSS scroll-driven animation is missing (Firefox, older Safari).
+      {
+        const native = CSS.supports('animation-timeline: scroll()');
         const root = document.documentElement;
+        const meta = document.querySelector('meta[name="theme-color"]');
+        const from = [248, 239, 227];
+        const to = [251, 226, 203];
+        let queued = false;
         const update = () => {
           queued = false;
           const max = root.scrollHeight - innerHeight;
-          root.style.setProperty('--p', max > 0 ? String(Math.min(1, Math.max(0, scrollY / max))) : '0');
+          const p = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+          const c = from.map((v, i) => Math.round(v + (to[i] - v) * p));
+          root.style.backgroundColor = `rgb(${c.join(',')})`;
+          meta?.setAttribute('content', '#' + c.map((v) => v.toString(16).padStart(2, '0')).join(''));
+          if (!native) root.style.setProperty('--p', String(p));
         };
         addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
         update();
