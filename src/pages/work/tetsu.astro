@@ -35,7 +35,7 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
       </p>
       <div class="brief" data-reveal>
         <p><strong>Problem</strong>People who lift keep routines in notes, and trackers make them retype everything.</p>
-        <p><strong>What I did</strong>Defined the requirements, personas and acceptance criteria, and directed AI assistants to build it, backed by 75 tests, 61 browser cases and a 13-case validation matrix.</p>
+        <p><strong>What I did</strong>Defined the requirements, personas and acceptance criteria, and directed AI assistants to build it, then tested it with automated tests, browser tests and a validation matrix.</p>
         <p><strong>Result</strong>A live, installable app. Validation found three defects, and all three are fixed. Real usage numbers are not in yet.</p>
       </div>
 
@@ -53,10 +53,19 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
         <dt>Version</dt>
         <dd>1.5.0, as of October 14, 2026. Hosted on a free tier.</dd>
       </dl>
+      <nav class="toc" aria-label="On this page" data-reveal>
+        <span>On this page</span>
+        <a href="#problem">Problem</a>
+        <a href="#built">What I built</a>
+        <a href="#ai-import">AI import</a>
+        <a href="#decisions">Decisions</a>
+        <a href="#validation">Validation</a>
+        <a href="#learned">What I learned</a>
+      </nav>
 </div>
     </header>
 
-    <section>
+    <section id="problem">
 <div class="col">
       <h2 data-reveal>The problem</h2>
       <p data-reveal>
@@ -69,26 +78,18 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
         Three working personas shaped what the app does. They were written for design decisions.
         They are not interview findings, and the project had no formal user research.
       </p>
-      <div class="runin">
-        <p data-reveal>
-          <strong>The Starter</strong> wants to train consistently but quits apps that open on a
-          blank page. Starter templates, a month calendar and one-tap logging serve her.
-        </p>
-        <p data-reveal>
-          <strong>The Migrator</strong> has a year of routines in notes and fears losing his
-          history. Paste-to-plan import with a review screen, exact units and decimals, and backup
-          and restore serve him.
-        </p>
-        <p data-reveal>
-          <strong>The Progressor</strong> trains for 8 to 15 reps, often with no signal, and wants
-          honest next-load advice. Planned-versus-actual logging, a conservative progression
-          forecast and offline use serve her.
-        </p>
-      </div>
+      <dl class="spec persona-list" data-reveal>
+        <dt>The Starter</dt>
+        <dd>Wants to train consistently but quits apps that open on a blank page. Starter templates, a month calendar and one-tap logging serve her.</dd>
+        <dt>The Migrator</dt>
+        <dd>Has a year of routines in notes and fears losing his history. Paste-to-plan import with a review screen, exact units and decimals, and backup and restore serve him.</dd>
+        <dt>The Progressor</dt>
+        <dd>Trains for 8 to 15 reps, often with no signal, and wants honest next-load advice. Planned-versus-actual logging, a conservative progression forecast and offline use serve her.</dd>
+      </dl>
 </div>
     </section>
 
-    <section>
+    <section id="built">
 <div class="col">
       <h2 data-reveal>What I built</h2>
       <div class="stage" data-stage data-reveal>
@@ -159,7 +160,7 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
 </div>
     </section>
 
-    <section>
+    <section id="ai-import">
 <div class="col">
       <h2 data-reveal>Designing the AI import</h2>
       <p data-reveal>
@@ -227,35 +228,30 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
 </div>
     </section>
 
-    <section>
+    <section id="decisions">
 <div class="col">
       <h2 data-reveal>Decisions and trade-offs</h2>
-      <div class="runin">
-        <p data-reveal>
-          <strong>Data stays in the browser, with no accounts.</strong> I considered a server
-          database with sign-in. Keeping data local removes sign-up friction and the privacy
-          burden, and the app works in a basement gym with no signal. The cost is no cross-device
-          sync, so backups are a first-class feature.
-        </p>
-        <p data-reveal>
-          <strong>Double progression instead of one-rep-max formulas.</strong> Those formulas come
-          from low-rep barbell lifts. They mislead for 8 to 15 rep isolation work and ignore that
-          dumbbells jump in fixed steps.
-        </p>
-        <p data-reveal>
-          <strong>Forecasts are heuristics, and the app says so.</strong> Nothing here is validated
-          against individual outcomes. Sparse, flat or declining histories produce “hold”, never
-          automatic gains.
-        </p>
-        <p data-reveal>
-          <strong>Review before replace on every import.</strong> AI output can be wrong. A
-          reviewable preview keeps the user in control and keeps failures cheap.
-        </p>
-        <p data-reveal>
-          <strong>Analytics are on by default, with a notice and a one-tap off.</strong> Strict
-          opt-in would have produced almost no data. The trade-off is that default-on collection
-          may not satisfy EU-style consent rules. I flagged that and documented it.
-        </p>
+      <div class="decisions">
+        <details class="mini" data-reveal>
+          <summary>Data stays in the browser, with no accounts.</summary>
+          <p>I considered a server database with sign-in. Keeping data local removes sign-up friction and the privacy burden, and the app works in a basement gym with no signal. The cost is no cross-device sync, so backups are a first-class feature.</p>
+        </details>
+        <details class="mini" data-reveal>
+          <summary>Double progression instead of one-rep-max formulas.</summary>
+          <p>Those formulas come from low-rep barbell lifts. They mislead for 8 to 15 rep isolation work and ignore that dumbbells jump in fixed steps.</p>
+        </details>
+        <details class="mini" data-reveal>
+          <summary>Forecasts are heuristics, and the app says so.</summary>
+          <p>Nothing here is validated against individual outcomes. Sparse, flat or declining histories produce “hold”, never automatic gains.</p>
+        </details>
+        <details class="mini" data-reveal>
+          <summary>Review before replace on every import.</summary>
+          <p>AI output can be wrong. A reviewable preview keeps the user in control and keeps failures cheap.</p>
+        </details>
+        <details class="mini" data-reveal>
+          <summary>Analytics are on by default, with a notice and a one-tap off.</summary>
+          <p>Strict opt-in would have produced almost no data. The trade-off is that default-on collection may not satisfy EU-style consent rules. I flagged that and documented it.</p>
+        </details>
       </div>
 </div>
     </section>
@@ -332,7 +328,7 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
 </div>
     </section>
 
-    <section class="band">
+    <section class="band" id="validation">
 <div class="col">
       <h2 data-reveal>Validation</h2>
       <p data-reveal>
@@ -357,34 +353,42 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
 
     <section class="band">
 <div class="col">
-      <h2 data-reveal>What I’d do next</h2>
-      <p data-reveal>
+      <details class="fold" data-reveal>
+<summary><h2>What I’d do next</h2></summary>
+<div class="fold-body">
+      <p>
         Shared rate limiting if usage grows beyond one instance, optional sign-in for cross-device
         sync, set-level analytics, and a decision on whether default-on analytics should become
         opt-in for EU visitors.
       </p>
 </div>
+</details>
+</div>
     </section>
 
-    <section class="band">
+    <section class="band" id="learned">
 <div class="col">
-      <h2 data-reveal>What I learned</h2>
+      <details class="fold" data-reveal>
+<summary><h2>What I learned</h2></summary>
+<div class="fold-body">
       <div class="runin">
-        <p data-reveal>
+        <p>
           <strong>Measure early, then audit the measurement.</strong> The first dashboard data was
           wrong because of duplicate events. Looking at the raw data caught what the summary charts
           hid.
         </p>
-        <p data-reveal>
+        <p>
           <strong>Write the limits down.</strong> Labeling heuristics, unverified platform behavior
           and the free-tier abuse ceiling made the product easier to trust and easier to defend in
           review.
         </p>
-        <p data-reveal>
+        <p>
           <strong>Reversible beats tidy.</strong> Marking test data and keeping the old events cost
           nothing and avoided an irreversible mistake.
         </p>
       </div>
+</div>
+</details>
       <div class="actions" data-reveal>
         <a class="btn" href="https://tetsugym.ai.studio" rel="noopener">Open the live app</a>
         <a class="textlink" href="/#work">Back to work</a>
