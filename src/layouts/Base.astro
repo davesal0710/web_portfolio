@@ -89,7 +89,7 @@ const tabs = [
       }, { rootMargin: '0px' }) : null;
       document.querySelectorAll('section, header.case-head').forEach((sec) => {
         sec.querySelectorAll('[data-reveal]').forEach((el, i) => {
-          el.style.setProperty('--d', Math.min(i, 5) * 50 + 'ms');
+          el.style.setProperty('--d', Math.min(i, 3) * 60 + 'ms');
           if (!io || el.getBoundingClientRect().top < innerHeight * 0.9) {
             el.style.transition = 'none';
             el.classList.add('in');
