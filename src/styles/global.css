@@ -1424,65 +1424,72 @@ html {
   margin-bottom: 0;
 }
 
-/* Warmth that follows the scroll. CSS only. Everything animates opacity or transform, so it runs on the graphics layer and scrolling stays smooth.
+/* Warmth that follows the scroll. Opacity and transform only, so it stays on the graphics layer.
+   --p (0 to 1) is the scroll progress. Browsers with scroll-driven animation use it natively; the rest get it from a small script in Base.astro.
+   It is a tone change and a thin progress line, not travel, so it also runs when reduced motion is on.
    Longhands on purpose: the minifier folds them into a shorthand Chrome ignores. */
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: scroll()) {
-    @keyframes warm-in {
-      to {
-        opacity: 1;
-      }
-    }
-    @keyframes read-line {
-      to {
-        transform: scaleX(1);
-      }
-    }
-    @keyframes rule-draw {
-      from {
-        transform: scaleX(0);
-      }
-    }
-    body::before,
-    .nav-bar::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: #fbe2cb;
-      opacity: 0;
-      pointer-events: none;
-      animation-name: warm-in;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: scroll(root);
-    }
-    .nav-bar::before {
-      position: absolute;
-    }
-    .nav-bar::after {
-      content: '';
-      position: absolute;
-      inset: auto 0 0;
-      height: 3px;
-      background: var(--chart);
-      transform: scaleX(0);
-      transform-origin: 0 50%;
-      animation-name: read-line;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: scroll(root);
-    }
-    #work > .col > h2::before,
-    #about > .col > h2::before,
-    #contact > .col > h2::before {
-      transform-origin: 0 50%;
-      animation-name: rule-draw;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: view();
-      animation-range: entry 5% entry 80%;
-    }
+body::before,
+.nav-bar::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: #fbe2cb;
+  opacity: var(--p, 0);
+  pointer-events: none;
+}
+.nav-bar::before {
+  position: absolute;
+}
+.nav-bar::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 3px;
+  background: var(--chart);
+  transform: scaleX(var(--p, 0));
+  transform-origin: 0 50%;
+}
+@keyframes warm-in {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes read-line {
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes rule-draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+@supports (animation-timeline: scroll()) {
+  body::before,
+  .nav-bar::before {
+    opacity: 0;
+    animation-name: warm-in;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: scroll(root);
+  }
+  .nav-bar::after {
+    transform: scaleX(0);
+    animation-name: read-line;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: scroll(root);
+  }
+  #work > .col > h2::before,
+  #about > .col > h2::before,
+  #contact > .col > h2::before {
+    transform-origin: 0 50%;
+    animation-name: rule-draw;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: view();
+    animation-range: entry 5% entry 80%;
   }
 }
 
