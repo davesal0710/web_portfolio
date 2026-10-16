@@ -36,7 +36,7 @@
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --radius: 10px;
   --radius-lg: 18px;
-  --nav-h: 4.25rem;
+  --nav-h: calc(4.25rem + env(safe-area-inset-top, 0px));
 
   --step-small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
   --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
@@ -125,6 +125,7 @@ body {
   top: 0;
   z-index: 5;
   height: var(--nav-h);
+  padding-top: env(safe-area-inset-top, 0px);
   display: flex;
   align-items: center;
   background: var(--bg);
@@ -1737,4 +1738,10 @@ dialog.lightbox::backdrop {
       opacity: 0;
     }
   }
+}
+
+/* The page runs under the phone's status bar and toolbar (viewport-fit=cover), so the bars take their colour from the tinted nav bar and page. Keep content out of the notch and home-indicator areas. */
+body {
+  padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
