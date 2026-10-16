@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import calendar from '../../assets/tetsu-calendar.png';
 import progress from '../../assets/tetsu-progress.png';
@@ -7,6 +7,15 @@ import aiImport from '../../assets/tetsu-ai-import.png';
 import timer from '../../assets/tetsu-workout-timer.png';
 import restore from '../../assets/tetsu-backup-restore.png';
 import logo from '../../assets/tetsu-logo.jpg';
+
+const big = async (src) => (await getImage({ src, width: 1000, format: 'webp' })).src;
+const full = {
+  calendar: await big(calendar),
+  progress: await big(progress),
+  aiImport: await big(aiImport),
+  timer: await big(timer),
+  restore: await big(restore),
+};
 
 const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
 ---
@@ -102,23 +111,23 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
         <div class="stage-phone" aria-live="off">
           <div class="slides">
             <figure class="slide">
-              <Image src={aiImport} alt="Tetsu’s import screen, where a pasted routine is reviewed before saving" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
+              <Image src={aiImport} data-full={full.aiImport} alt="Tetsu’s import screen, where a pasted routine is reviewed before saving" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
               <figcaption>Import and review</figcaption>
             </figure>
             <figure class="slide">
-              <Image src={calendar} alt="Tetsu’s month calendar on a phone" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
+              <Image src={calendar} data-full={full.calendar} alt="Tetsu’s month calendar on a phone" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
               <figcaption>Calendar</figcaption>
             </figure>
             <figure class="slide">
-              <Image src={timer} alt="Tetsu’s workout screen with the rest timer" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
+              <Image src={timer} data-full={full.timer} alt="Tetsu’s workout screen with the rest timer" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
               <figcaption>Workout and rest timer</figcaption>
             </figure>
             <figure class="slide">
-              <Image src={progress} alt="Tetsu’s progress tab, with history and advice for an exercise" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
+              <Image src={progress} data-full={full.progress} alt="Tetsu’s progress tab, with history and advice for an exercise" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
               <figcaption>Progress and advice</figcaption>
             </figure>
             <figure class="slide">
-              <Image src={restore} alt="Tetsu’s backup restore screen, showing a summary of the file and a choice between a safe merge and a full replace" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
+              <Image src={restore} data-full={full.restore} alt="Tetsu’s backup restore screen, showing a summary of the file and a choice between a safe merge and a full replace" widths={[320, 480, 640]} sizes="16rem" loading="lazy" />
               <figcaption>Backup and restore</figcaption>
             </figure>
           </div>
@@ -126,23 +135,23 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
       </div>
       <div class="shots five" data-reveal>
         <figure>
-          <Image src={calendar} alt="Tetsu’s month calendar on a phone" {...shot} />
+          <Image src={calendar} data-full={full.calendar} alt="Tetsu’s month calendar on a phone" {...shot} />
           <figcaption>Calendar</figcaption>
         </figure>
         <figure>
-          <Image src={aiImport} alt="Tetsu’s import screen, where a pasted routine is reviewed before saving" {...shot} />
+          <Image src={aiImport} data-full={full.aiImport} alt="Tetsu’s import screen, where a pasted routine is reviewed before saving" {...shot} />
           <figcaption>Import and review</figcaption>
         </figure>
         <figure>
-          <Image src={progress} alt="Tetsu’s progress tab, with history and advice for an exercise" {...shot} />
+          <Image src={progress} data-full={full.progress} alt="Tetsu’s progress tab, with history and advice for an exercise" {...shot} />
           <figcaption>Progress and advice</figcaption>
         </figure>
         <figure>
-          <Image src={timer} alt="Tetsu’s workout screen with the rest timer" {...shot} />
+          <Image src={timer} data-full={full.timer} alt="Tetsu’s workout screen with the rest timer" {...shot} />
           <figcaption>Workout and rest timer</figcaption>
         </figure>
         <figure>
-          <Image src={restore} alt="Tetsu’s backup restore screen, showing a summary of the file and a choice between a safe merge and a full replace" {...shot} />
+          <Image src={restore} data-full={full.restore} alt="Tetsu’s backup restore screen, showing a summary of the file and a choice between a safe merge and a full replace" {...shot} />
           <figcaption>Backup and restore</figcaption>
         </figure>
       </div>
@@ -209,7 +218,7 @@ const shot = { widths: [160, 320], sizes: '(min-width: 40rem) 8rem, 45vw' };
       <h2 data-reveal>My role</h2>
       <p data-reveal>
         I chose the problem, decided what to build and what to cut, wrote the acceptance criteria,
-        reviewed every change, decided release timing, and defined what “done” means, including the
+        reviewed changes through pull requests, decided release timing, and defined what “done” means, including the
         validation and test evidence below. The code was written by AI coding assistants (Codex and
         Claude Code) working from my direction, in a pull-request workflow where each fix or
         feature had its own branch, tests and review. This is product ownership with AI-assisted

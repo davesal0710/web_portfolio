@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import headshot from '../assets/david-salazar-headshot.jpg';
 import calendar from '../assets/tetsu-calendar.png';
@@ -7,6 +7,13 @@ import progress from '../assets/tetsu-progress.png';
 import aiImport from '../assets/tetsu-ai-import.png';
 import logo from '../assets/tetsu-logo.jpg';
 import hackathon from '../assets/computershare-hackathon.jpg';
+
+const big = async (src) => (await getImage({ src, width: 1000, format: 'webp' })).src;
+const full = {
+  calendar: await big(calendar),
+  progress: await big(progress),
+  aiImport: await big(aiImport),
+};
 ---
 
 <Base
@@ -27,8 +34,8 @@ import hackathon from '../assets/computershare-hackathon.jpg';
       <h1 data-reveal>Clear requirements from messy problems.</h1>
       <p data-reveal style="margin-top:1.1rem">
         I do business analysis and project coordination, currently as a consultant at FDM
-        Group. I write requirements and acceptance criteria, and I build prototypes with AI that
-        I review line by line.
+        Group. I write requirements and acceptance criteria, and I build prototypes with AI and
+        check them against those requirements and tests.
       </p>
       <div class="actions" data-reveal>
         <a class="btn" href="/work/tetsu/">Read the Tetsu case study</a>
@@ -96,7 +103,7 @@ import hackathon from '../assets/computershare-hackathon.jpg';
         <div class="shots" data-reveal>
           <figure>
             <Image
-              src={calendar}
+              src={calendar} data-full={full.calendar}
               alt="Tetsu’s month calendar on a phone, with push, pull and legs days marked"
               widths={[160, 320]}
               sizes="(min-width: 40rem) 11rem, 30vw"
@@ -105,7 +112,7 @@ import hackathon from '../assets/computershare-hackathon.jpg';
           </figure>
           <figure>
             <Image
-              src={progress}
+              src={progress} data-full={full.progress}
               alt="Tetsu’s progress tab on a phone, showing history and advice for an exercise"
               widths={[160, 320]}
               sizes="(min-width: 40rem) 11rem, 30vw"
@@ -114,7 +121,7 @@ import hackathon from '../assets/computershare-hackathon.jpg';
           </figure>
           <figure>
             <Image
-              src={aiImport}
+              src={aiImport} data-full={full.aiImport}
               alt="Tetsu’s import screen on a phone, where a pasted routine is reviewed before it is saved"
               widths={[160, 320]}
               sizes="(min-width: 40rem) 11rem, 30vw"
@@ -184,8 +191,8 @@ import hackathon from '../assets/computershare-hackathon.jpg';
       <p data-reveal>
         I finished my BA in Management and Administration at The City College of New York in
         September 2026, magna cum laude. I like building working software with AI assistants, and I
-        treat it like any other delivery: write down what it should do, test it, and review every
-        change. Outside work I lift, and I used to produce and sell beats online.
+        treat it like any other delivery: write down what it should do, test it, and check the
+        results. Outside work I lift, and I used to produce and sell beats online.
       </p>
       <figure class="about-photo" data-reveal>
         <Image
