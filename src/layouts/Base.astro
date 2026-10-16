@@ -8,6 +8,7 @@ interface Props {
 }
 const { title, description, current } = Astro.props;
 const home = Astro.url.pathname === '/';
+const ogImage = new URL('/og.png', Astro.site).href;
 const prefix = home ? '' : '/';
 const tabs = [
   { id: 'intro', label: 'intro', href: home ? '#top' : '/' },
@@ -26,10 +27,16 @@ const tabs = [
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#f8efe3" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" href="/fonts/switzer-400.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/switzer-500.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/cabinet-500.woff2" as="font" type="font/woff2" crossorigin />
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body id="top">
