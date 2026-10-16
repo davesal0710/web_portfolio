@@ -1,0 +1,98 @@
+---
+import Base from '../../layouts/Base.astro';
+
+// Orders per day for the first drop, counted from the store's order export (aggregated, no customer data).
+const firstDrop = { start: 'Jun 25, 2021', end: 'Jul 4', orders: [1, 0, 0, 40, 4, 3, 1, 4, 2, 1] };
+const peak = Math.max(...firstDrop.orders);
+---
+
+<Base
+  title="DvzzPins · David Salazar"
+  description="I ran DvzzPins, a pin brand: I took my sketches to finished products with a designer and a manufacturer, then launched them as drops that sold out."
+  current="work"
+>
+  <div class="case">
+    <header class="case-head">
+      <div class="col">
+        <h1 data-reveal>DvzzPins</h1>
+        <p class="lede" data-reveal>
+          A pin brand I ran on my own. I turned my sketches into finished products with a designer
+          and a manufacturer, then launched them as drops that sold out.
+        </p>
+      <div class="brief" data-reveal>
+        <p><strong>Problem</strong>I wanted pins of my own design to exist.</p>
+        <p><strong>What I did</strong>Briefed a designer, approved manufacturer proofs, and launched the pins as limited drops.</p>
+        <p><strong>Result</strong>Four designs sold out, and the first drop took 40 orders in a single day.</p>
+      </div>
+
+        <dl class="spec" data-reveal>
+          <dt>What</dt>
+          <dd>An online pin brand, December 2020 to October 2022.</dd>
+          <dt>Role</dt>
+          <dd>Founder and only operator. I owned the vision, the design brief, the production and every launch.</dd>
+          <dt>Result</dt>
+          <dd>The store shipped to 156 customers in 24 states.</dd>
+        </dl>
+      </div>
+    </header>
+
+    <section>
+      <div class="col">
+        <h2 data-reveal>From sketch to product</h2>
+        <div class="runin">
+          <p data-reveal>
+            <strong>The vision.</strong> Every product started as my own sketch of a pin I wanted
+            to exist.
+          </p>
+          <p data-reveal>
+            <strong>The design.</strong> I worked with a designer to turn those sketches into
+            finished artwork. My job was to brief them, review what came back and say what to
+            change until it matched what I had pictured.
+          </p>
+          <p data-reveal>
+            <strong>The product.</strong> A manufacturer made the designs real. Before anything
+            was produced, I checked and approved a proof of each design: the size, colors, finish
+            and quantity.
+          </p>
+          <p data-reveal>
+            <strong>The launch.</strong> I released the pins as limited drops, managed inventory
+            and answered customers.
+          </p>
+        </div>
+        <p data-reveal>
+          It is the same loop I use in analysis work: a clear brief, a check of the output against
+          it, and approval only when it matches.
+        </p>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="col">
+        <h2 data-reveal>How the drops landed</h2>
+        <p data-reveal>
+          The first drop landed on June 28, 2021. The store took 40 orders that day, a fifth of
+          every order it would ever receive, and 48 in its first six days.
+        </p>
+        <div data-reveal>
+          <div class="columns-chart" role="img" aria-label={`Orders per day from ${firstDrop.start} to ${firstDrop.end}: ${firstDrop.orders.join(', ')}`}>
+            {firstDrop.orders.map((n) => (
+              <span style={`height:${(n / peak) * 100}%`}>{n >= 10 && <em>{n}</em>}</span>
+            ))}
+          </div>
+          <div class="columns-labels" aria-hidden="true"><span>{firstDrop.start}</span><span>{firstDrop.end}</span></div>
+          <p class="figure-note">Orders per day, first drop.</p>
+        </div>
+        <ul data-reveal>
+          <li>Later drops followed the same pattern, including 15 orders in a single day in February 2022.</li>
+          <li>Four designs sold out completely.</li>
+          <li>Orders came from 156 customers in 24 states, and 29 of them came back to order again.</li>
+        </ul>
+        <div class="actions" data-reveal>
+          <a class="btn" href="/#work">Back to work</a>
+          <a class="textlink" href="/work/tetsu/">Next: Tetsu</a>
+        <a class="textlink" href="/#contact">Get in touch</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>

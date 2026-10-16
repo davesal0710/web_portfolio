@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T00:00:00Z",
+  "title": "Design System: David Salazar Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "cream-bg": { "role": "neutral", "displayName": "Cream Background", "canonical": "#f8efe3", "tonalRamp": ["#2e2218", "#6a5443", "#a98f7a", "#d4bca4", "#eaa781", "#f5bd9b", "#f1e1cd", "#f8efe3"] },
+      "sand-surface": { "role": "neutral", "displayName": "Sand Surface", "canonical": "#f1e1cd", "tonalRamp": ["#2e2218", "#6a5443", "#a98f7a", "#d4bca4", "#eaa781", "#f5bd9b", "#f1e1cd", "#f8efe3"] },
+      "apricot-step": { "role": "neutral", "displayName": "Apricot Step", "canonical": "#f7d0b4", "tonalRamp": ["#2e2218", "#6a5443", "#a98f7a", "#d4bca4", "#eaa781", "#f5bd9b", "#f7d0b4", "#f8efe3"] },
+      "cocoa-ink": { "role": "neutral", "displayName": "Cocoa Ink", "canonical": "#2e2218", "tonalRamp": ["#2e2218", "#6a5443", "#a98f7a", "#d4bca4", "#eaa781", "#f5bd9b", "#f1e1cd", "#f8efe3"] },
+      "umber-muted": { "role": "neutral", "displayName": "Umber Muted", "canonical": "#6a5443", "tonalRamp": ["#2e2218", "#6a5443", "#a98f7a", "#d4bca4", "#eaa781", "#f5bd9b", "#f1e1cd", "#f8efe3"] },
+      "peach-accent": { "role": "primary", "displayName": "Peach Accent", "canonical": "#f5bd9b", "tonalRamp": ["#7a3f1f", "#a85f38", "#d0814f", "#eaa781", "#f0ae88", "#f5bd9b", "#f7d0b4", "#fbe6d6"] },
+      "peach-accent-hover": { "role": "primary", "displayName": "Peach Accent Hover", "canonical": "#f0ae88", "tonalRamp": ["#7a3f1f", "#a85f38", "#d0814f", "#eaa781", "#f0ae88", "#f5bd9b", "#f7d0b4", "#fbe6d6"] },
+      "terracotta-chart": { "role": "secondary", "displayName": "Terracotta Chart", "canonical": "#eaa781", "tonalRamp": ["#7a3f1f", "#a85f38", "#d0814f", "#eaa781", "#f0ae88", "#f5bd9b", "#f7d0b4", "#fbe6d6"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Home h1, Cabinet Grotesk 500." },
+      "case-title": { "displayName": "Case title", "purpose": "Case-study h1, the largest type." },
+      "headline": { "displayName": "Headline", "purpose": "Home section h2." },
+      "title": { "displayName": "Title", "purpose": "h3, ledes, statements, case h2 in margin." },
+      "body": { "displayName": "Body", "purpose": "Switzer paragraphs." },
+      "label": { "displayName": "Label", "purpose": "Meta, captions, dates; sentence case." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.23, 1, 0.32, 1)", "purpose": "Reveals (320ms, 50ms stagger), demo cross-fade (200ms), hover and press (140-150ms), fold plus (200ms)." },
+      { "name": "ease-in-out", "value": "cubic-bezier(0.77, 0, 0.175, 1)", "purpose": "Sliding tab pill, 240ms, transform only." },
+      { "name": "press", "value": "scale(0.97)", "purpose": "Button :active feedback." }
+    ],
+    "breakpoints": [
+      { "name": "narrow-tabs", "value": "23rem" },
+      { "name": "rows-stack", "value": "29rem" },
+      { "name": "tablet", "value": "40rem" },
+      { "name": "desktop", "value": "64rem" },
+      { "name": "wide-shots", "value": "80rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Peach action link or button; deepens on hover, scales on press.",
+      "html": "<a class=\"ds-btn\" href=\"#\">Read the case study</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;min-height:2.75rem;padding:0 1.25rem;background:var(--accent,#f5bd9b);color:#2e2218;border-radius:8px;text-decoration:none;font-weight:500;transition:transform 140ms,background-color 140ms}.ds-btn:hover{background:var(--accent-hover,#f0ae88)}.ds-btn:active{transform:scale(.97)}.ds-btn:focus-visible{outline:2px solid #2e2218;outline-offset:3px}"
+    },
+    {
+      "name": "Tab Bar",
+      "kind": "nav",
+      "refersTo": "tab-bar",
+      "description": "Sand bar with an apricot pill behind the current tab.",
+      "html": "<div class=\"ds-tabs\"><a class=\"ds-cur\" href=\"#\">intro</a><a href=\"#\">work</a><a href=\"#\">about</a><a href=\"#\">contact</a></div>",
+      "css": ".ds-tabs{display:inline-flex;gap:2px;padding:4px;background:#f1e1cd;border-radius:8px}.ds-tabs a{min-height:2.75rem;padding:0 1rem;display:inline-flex;align-items:center;border-radius:3px;color:#6a5443;text-decoration:none;font-size:.9rem}.ds-tabs a:hover{color:#2e2218}.ds-tabs .ds-cur{background:#f7d0b4;color:#2e2218;font-weight:500}.ds-tabs a:focus-visible{outline:2px solid #2e2218;outline-offset:3px}"
+    },
+    {
+      "name": "Brief Card",
+      "kind": "card",
+      "refersTo": "brief-card",
+      "description": "Problem / What I did / Result opener on each case page.",
+      "html": "<div class=\"ds-brief\"><p><strong>Problem</strong>Plans lived in notes.</p><p><strong>What I did</strong>Wrote the requirement.</p><p><strong>Result</strong>A working prototype.</p></div>",
+      "css": ".ds-brief{background:#f1e1cd;border-radius:14px;padding:1.25rem 1.4rem;color:#2e2218}.ds-brief p{margin:0 0 .75rem}.ds-brief p:last-child{margin:0}.ds-brief strong{display:block;font-size:.9rem;color:#6a5443;font-weight:500;margin-bottom:.1rem}"
+    },
+    {
+      "name": "Demo Segment",
+      "kind": "chip",
+      "refersTo": "demo-card",
+      "description": "Segmented text buttons in the requirement demo; pressed state is apricot.",
+      "html": "<div class=\"ds-seg\"><button aria-pressed=\"true\">Note</button><button aria-pressed=\"false\">Requirement</button></div>",
+      "css": ".ds-seg{display:flex;gap:4px;padding:1.25rem;background:#f1e1cd;border-radius:14px}.ds-seg button{min-height:2.75rem;padding:0 .85rem;border:0;border-radius:8px;background:transparent;color:#6a5443;font:inherit;font-size:.9rem;cursor:pointer}.ds-seg button:hover{color:#2e2218}.ds-seg button[aria-pressed=true]{background:#f7d0b4;color:#2e2218;font-weight:500}.ds-seg button:focus-visible{outline:2px solid #2e2218;outline-offset:3px}"
+    },
+    {
+      "name": "Bar Row",
+      "kind": "custom",
+      "refersTo": "chart-fill",
+      "description": "Label, cream track with terracotta fill, tabular percent.",
+      "html": "<div class=\"ds-band\"><div class=\"ds-bar\"><span>Manual steps</span><span class=\"ds-track\"><span class=\"ds-fill\" style=\"width:64%\"></span></span><span class=\"ds-pct\">64%</span></div></div>",
+      "css": ".ds-band{background:#f1e1cd;padding:1.25rem;border-radius:14px;color:#2e2218}.ds-bar{display:grid;grid-template-columns:8rem 1fr 3rem;gap:.75rem;align-items:center}.ds-track{height:1.25rem;background:#f8efe3;border-radius:8px;overflow:hidden}.ds-fill{display:block;height:100%;background:#eaa781;border-radius:8px}.ds-pct{text-align:right;font-variant-numeric:tabular-nums}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Warm Page",
+    "overview": "A cream sheet with sand and peach laid on it in flat tonal steps, read the way a calm person talks: plain, first-person, unhurried. Depth comes from stepping between four tones, not from shadows or lines. Density is low; sections are separated by space alone; decoration is absent.",
+    "keyCharacteristics": [
+      "Four warm neutrals plus one peach accent; no cool colors, no gradients.",
+      "Two grotesks: Cabinet Grotesk for voice, Switzer for reading.",
+      "Zero box-shadows; depth is tonal.",
+      "Two radius tiers: 8px for controls and media, 14px for containers.",
+      "Motion is short and always gated for reduced motion and hover capability."
+    ],
+    "rules": [
+      { "name": "The Tonal Step Rule", "body": "Hierarchy between surfaces is cream, then sand, then apricot. A container inside a sand band flips to cream instead of gaining a border or shadow.", "section": "colors" },
+      { "name": "The Peach Is For Doing Rule", "body": "Peach marks the thing to press; selected state uses apricot; data uses terracotta. Do not swap them.", "section": "colors" },
+      { "name": "The Two Voices Rule", "body": "Cabinet Grotesk sets headings, ledes and the contact statement; Switzer sets small labels inside components even when they are h3s.", "section": "typography" },
+      { "name": "The Flat Rule", "body": "Nothing carries box-shadow, blur, gradient or border for depth. Press feedback is a scale, not a lift.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do set all text in cocoa (#2e2218) or muted umber (#6a5443); never pure black or white.",
+      "Do step surfaces cream, sand, apricot; flip to cream for a card inside a sand band.",
+      "Do keep controls at 8px and containers at 14px.",
+      "Do keep tap targets at least 44px tall.",
+      "Do use weight 500 for emphasis and Cabinet Grotesk only for headings, ledes and statements.",
+      "Do gate every animation behind reduced motion and every hover behind hover capability.",
+      "Do write labels and tabs in sentence or lower case."
+    ],
+    "donts": [
+      "Don't add shadows, gradients, glass, grain or icon-card grids.",
+      "Don't use peach for data or terracotta for buttons.",
+      "Don't separate sections with rules or borders; use space.",
+      "Don't use bold above 500, and don't track out small text.",
+      "Don't let any element exceed the viewport: titles and values use overflow-wrap: anywhere."
+    ]
+  }
+}
