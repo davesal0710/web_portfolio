@@ -11,110 +11,88 @@ import aiImport from '../assets/tetsu-ai-import.png';
   title="David Salazar · Business analysis and project delivery"
   description="David Salazar turns messy operational problems into clear requirements and working prototypes, with AI in the workflow and a human reviewing the result."
   current="intro"
-  pager
 >
-  <main id="main" class="track" data-track>
-    <section class="page split" id="intro" data-page aria-label="Intro">
-<div class="inner">
-      <div class="text">
-        <h1 data-reveal>I turn messy problems into clear requirements.</h1>
-        <p data-reveal>
-          I'm David Salazar, a Change &amp; Transformation consultant at FDM Group in New York. I do
-          business analysis and project delivery, and I build working prototypes with AI, reviewing
-          everything it produces.
-        </p>
-        <div class="actions" data-reveal>
-          <a class="btn" href="#tetsu" data-go="tetsu">Read the Tetsu case study</a>
-          <a class="textlink" href="mailto:davesal0710@gmail.com">Email me</a>
-        </div>
+  
+    <section class="hero" id="intro">
+<div class="col">
+      <h1 data-reveal>I turn messy problems into clear requirements.</h1>
+      <p data-reveal style="margin-top:1.1rem">
+        I'm David Salazar, a Change &amp; Transformation consultant at FDM Group in New York. I do
+        business analysis and project delivery, and I build working prototypes with AI, reviewing
+        everything it produces.
+      </p>
+      <div class="actions" data-reveal>
+        <a class="btn" href="/work/tetsu/">Read the Tetsu case study</a>
+        <a class="textlink" href="mailto:davesal0710@gmail.com">Email me</a>
       </div>
-      <div class="field">
-        <div class="demo" data-ui data-reveal>
-          <p class="label muted small" style="margin:0 0 0.75rem">How I write a requirement, using Tetsu</p>
-          <div data-demo>
-            <div data-pane data-label="A note">
-              <span class="label">What a user might say (a working persona, not an interview)</span>
-              <p>
-                “I keep a year of routines in my notes: Preacher Curl - 42.5, 55 (20.5kg other
-                machine). Every tracker wants me to retype all of it, and I don't want to lose my
-                history.”
-              </p>
-            </div>
-            <div data-pane data-label="User story">
-              <span class="label">What the product has to do for them</span>
-              <p>
-                As someone with a year of routines in notes, I want to paste them in and check the
-                result before anything is replaced, so that I keep my history and my numbers exactly
-                as written.
-              </p>
-            </div>
-            <div data-pane data-label="Acceptance criteria">
-              <span class="label">How we know it works</span>
-              <ul>
-                <li>
-                  Given pasted text with decimals and mixed kg and lb, when it is imported, then
-                  every value and unit is kept exactly as written.
-                </li>
-                <li>
-                  Given an import, when the review screen shows, then nothing replaces the current
-                  plan until I confirm.
-                </li>
-                <li>
-                  Given a backup restore, when a day already has data, then that day is not
-                  overwritten.
-                </li>
-              </ul>
-            </div>
+
+      <div class="demo" data-ui data-reveal>
+        <p class="label muted small" style="margin:0 0 0.75rem">How I write a requirement, using Tetsu</p>
+        <div data-demo>
+          <div data-pane data-label="A note">
+            <span class="label">What a user might say (a working persona, not an interview)</span>
+            <p>
+              “I keep a year of routines in my notes: Preacher Curl - 42.5, 55 (20.5kg other
+              machine). Every tracker wants me to retype all of it, and I don't want to lose my
+              history.”
+            </p>
           </div>
-          <p class="note">Written for this page from the Tetsu case study.</p>
+          <div data-pane data-label="User story">
+            <span class="label">What the product has to do for them</span>
+            <p>
+              As someone with a year of routines in notes, I want to paste them in and check the
+              result before anything is replaced, so that I keep my history and my numbers exactly
+              as written.
+            </p>
+          </div>
+          <div data-pane data-label="Acceptance criteria">
+            <span class="label">How we know it works</span>
+            <ul>
+              <li>
+                Given pasted text with decimals and mixed kg and lb, when it is imported, then
+                every value and unit is kept exactly as written.
+              </li>
+              <li>
+                Given an import, when the review screen shows, then nothing replaces the current
+                plan until I confirm.
+              </li>
+              <li>
+                Given a backup restore, when a day already has data, then that day is not
+                overwritten.
+              </li>
+            </ul>
+          </div>
         </div>
+        <p class="note">Written for this page from the Tetsu case study.</p>
       </div>
 </div>
     </section>
 
-    <section class="page split" id="tetsu" data-page aria-label="Tetsu">
-<div class="inner">
-      <div class="text">
-        <h2 data-reveal>tetsu</h2>
-        <p class="lede" data-reveal>
-          A workout planner and training log, live as an installable web app.
-        </p>
+    <section id="work">
+<div class="col">
+      <h2 data-reveal>work</h2>
+
+      <article class="piece side">
+        <h3 data-reveal>Tetsu, a workout planner and training log</h3>
+        <p class="meta" data-reveal>Solo project, live as an installable web app</p>
         <p data-reveal>
-          People who lift seriously keep their routines in notes and spreadsheets, and most
-          trackers make them retype everything into rigid templates. I defined the problem, three
-          working personas and the requirements: paste a routine in and review it before it
-          replaces anything, log sets without a signal, and get progression advice that says “hold”
-          when the history doesn't support adding weight.
+          People who lift seriously keep their routines in notes and spreadsheets, and most trackers
+          make them retype everything into rigid templates. I defined the problem, three working
+          personas and the requirements: paste a routine in and review it before it replaces
+          anything, log sets without a signal, and get progression advice that says “hold” when the
+          history doesn't support adding weight.
         </p>
         <p data-reveal>
           I owned the product. AI coding assistants (Codex and Claude Code) wrote the code under my
           direction, with a pull request for every change.
         </p>
-        <ul class="plain" data-reveal>
-          <li>75 automated tests and 61 browser test cases.</li>
-          <li>
-            A 13-case validation matrix of synthetic training histories found three defects in the
-            live app. They are fixed and covered by tests.
-          </li>
-          <li>
-            Usage analytics and a PostHog dashboard are set up. Real usage numbers aren't in yet,
-            so I'm not quoting any.
-          </li>
-        </ul>
-        <div class="actions" data-reveal>
-          <a class="btn" href="/work/tetsu/">Read the case study</a>
-          <a class="textlink" href="https://tetsugym.ai.studio" rel="noopener">Open the live app</a>
-        </div>
-      </div>
-      <div class="field">
-        <div class="phones" data-reveal>
+        <div class="shots" data-reveal>
           <figure>
             <Image
               src={calendar}
               alt="Tetsu's month calendar on a phone, with push, pull and legs days marked"
-              widths={[200, 400]}
-              sizes="(min-width: 56rem) 12rem, 30vw"
-              loading="eager"
+              widths={[160, 320]}
+              sizes="(min-width: 40rem) 11rem, 30vw"
             />
             <figcaption>Calendar</figcaption>
           </figure>
@@ -122,9 +100,8 @@ import aiImport from '../assets/tetsu-ai-import.png';
             <Image
               src={progress}
               alt="Tetsu's progress tab on a phone, showing history and advice for an exercise"
-              widths={[200, 400]}
-              sizes="(min-width: 56rem) 12rem, 30vw"
-              loading="eager"
+              widths={[160, 320]}
+              sizes="(min-width: 40rem) 11rem, 30vw"
             />
             <figcaption>Progress and advice</figcaption>
           </figure>
@@ -132,140 +109,173 @@ import aiImport from '../assets/tetsu-ai-import.png';
             <Image
               src={aiImport}
               alt="Tetsu's import screen on a phone, where a pasted routine is reviewed before it is saved"
-              widths={[200, 400]}
-              sizes="(min-width: 56rem) 12rem, 30vw"
-              loading="eager"
+              widths={[160, 320]}
+              sizes="(min-width: 40rem) 11rem, 30vw"
             />
             <figcaption>Import and review</figcaption>
           </figure>
         </div>
-      </div>
-</div>
-    </section>
+        <ul data-reveal>
+          <li>75 automated tests and 61 browser test cases.</li>
+          <li>
+            A 13-case validation matrix of synthetic training histories found three defects in the
+            live app. They are fixed and covered by tests.
+          </li>
+          <li>
+            Usage analytics and a PostHog dashboard are set up. Real usage numbers aren't in yet, so
+            I'm not quoting any.
+          </li>
+        </ul>
+        <div class="actions" data-reveal style="margin-top:0">
+          <a class="btn" href="/work/tetsu/">Read the case study</a>
+          <a class="textlink" href="https://tetsugym.ai.studio" rel="noopener">Open the live app</a>
+        </div>
+      </article>
 
-    <section class="page stack" id="more" data-page aria-label="More work">
-<div class="inner">
-      <div class="band-top">
-        <h2 data-reveal>more work</h2>
-      </div>
-      <div class="two-col">
-        <article>
-          <h3 data-reveal>Inbound bottleneck analysis, Amazon</h3>
-          <p class="meta" data-reveal>Area Manager Intern, Hazleton PA, summer 2025. A two-week project.</p>
-          <p data-reveal>
-            I investigated a bottleneck on an inbound route. I compared alarm categories and
-            downtime, set a throughput baseline, and ran a root-cause analysis with input from the
-            people working the floor.
-          </p>
-          <p data-reveal>
-            I proposed a temporary connection to an alternative route, with a phased path to making
-            it permanent. The proposal covered equipment, approvals, staging and safety, and I
-            built the cost assumptions and a business case. I worked with Operations, RME and IT,
-            and presented it. Details are generalized for confidentiality.
-          </p>
-        </article>
-        <article>
-          <h3 data-reveal>DvzzPins, a Shopify store</h3>
-          <p class="meta" data-reveal>Founder, December 2020 to October 2022</p>
-          <p data-reveal>
-            I ran the business end to end: product development with designers, supplier
-            relationships, inventory, launches and customer messages. The store exports show 199
-            orders and $3,760 in net sales.
-          </p>
-          <p data-reveal>
-            With supplier GS-JJ I worked through specs and proofs, negotiated a $50 credit on a
-            repeat mold charge, and got quotes for a charm line.
-          </p>
-        </article>
-      </div>
-</div>
-    </section>
-
-    <section class="page split" id="about" data-page aria-label="About">
-<div class="inner">
-      <div class="text">
-        <h2 data-reveal>about</h2>
+      <article class="piece">
+        <h3 data-reveal>Inbound bottleneck analysis, Amazon</h3>
+        <p class="meta" data-reveal>Area Manager Intern, Hazleton PA, summer 2025. A two-week project.</p>
         <p data-reveal>
-          I finished my BA in Management and Administration at The City College of New York in
-          September 2026, magna cum laude, with a 3.5 GPA. I like building working software with AI assistants, and
-          I treat it like any other delivery: write down what it should do, test it, and review
-          every change. I speak English and Spanish fluently. Outside work I lift, and I used to produce and sell
-          beats online.
+          I investigated a bottleneck on an inbound route. I compared alarm categories and
+          downtime, set a throughput baseline, and ran a root-cause analysis with input from the
+          people working the floor.
         </p>
-        <dl class="skills-list" data-reveal>
-          <dt>Analysis</dt>
-          <dd>
+        <p data-reveal>
+          I proposed a temporary connection to an alternative route, with a phased path to making
+          it permanent. The proposal covered equipment, approvals, staging and safety, and I built
+          the cost assumptions and a business case. I worked with Operations, RME and IT, and
+          presented it. Details are generalized for confidentiality.
+        </p>
+      </article>
+
+      <article class="piece">
+        <h3 data-reveal>DvzzPins, a Shopify store</h3>
+        <p class="meta" data-reveal>Founder, December 2020 to October 2022</p>
+        <p data-reveal>
+          I ran the business end to end: product development with designers, supplier
+          relationships, inventory, launches and customer messages. The store exports show 199
+          orders and $3,760 in net sales.
+        </p>
+        <p data-reveal>
+          With supplier GS-JJ I worked through specs and proofs, negotiated a $50 credit on a
+          repeat mold charge, and got quotes for a charm line.
+        </p>
+      </article>
+</div>
+    </section>
+
+    <section id="about" class="band">
+<div class="col">
+      <h2 data-reveal>about</h2>
+      <p data-reveal>
+        I finished my BA in Management and Administration at The City College of New York in
+        September 2026, magna cum laude. I like building working software with AI assistants, and I
+        treat it like any other delivery: write down what it should do, test it, and review every
+        change. Outside work I lift, and I used to produce and sell beats online.
+      </p>
+      <dl class="facts" data-reveal>
+        <div>
+          <dt>Based in</dt>
+          <dd>New York</dd>
+        </div>
+        <div>
+          <dt>Languages</dt>
+          <dd>English, Spanish (fluent)</dd>
+        </div>
+        <div>
+          <dt>Education</dt>
+          <dd>BA, The City College of New York, GPA 3.5</dd>
+        </div>
+      </dl>
+
+      <h3 class="group" data-reveal style="margin-top:4rem">Experience</h3>
+      <ul class="rows">
+        <li data-reveal>
+          <div class="head"><span>Change &amp; Transformation Consultant, FDM Group</span><span class="when">Aug 2026 to now</span></div>
+          <p>
+            Eight-week Skills Lab covering business analysis, Agile/Scrum, SAFe, Excel and Power
+            BI. I supported Computershare's Copilot hackathon (Copilot Studio workflows,
+            connectors, configurations and environments), helped with Power Automate integrations,
+            co-developed a newsletter-agent prototype, and escalated complex issues to
+            specialists.
+          </p>
+        </li>
+        <li data-reveal>
+          <div class="head"><span>Warehouse Associate / IT Superuser, Amazon, Melville NY</span><span class="when">Oct 2024 to Aug 2026</span></div>
+          <p>
+            First-line IT support for thin clients, monitors and scanners. I diagnosed incidents,
+            created tickets and escalated them, and ran daily equipment-readiness audits.
+          </p>
+        </li>
+        <li data-reveal>
+          <div class="head"><span>Area Manager Intern, Amazon, Hazleton PA</span><span class="when">Jun to Aug 2025</span></div>
+          <p>The inbound bottleneck analysis above.</p>
+        </li>
+        <li data-reveal>
+          <div class="head"><span>Team Lead, Braven Accelerator</span><span class="when">Aug to Dec 2023</span></div>
+          <p>
+            Coordinated timelines, tasks, user research and the final presentation for a university
+            app redesign. The team won the Fall 2023 Capstone Challenge.
+          </p>
+        </li>
+        <li data-reveal>
+          <div class="head"><span>Founder, DvzzPins</span><span class="when">Dec 2020 to Oct 2022</span></div>
+          <p>The Shopify store above.</p>
+        </li>
+      </ul>
+
+      <h3 class="group" data-reveal>Skills and tools</h3>
+      <ul class="rows">
+        <li data-reveal>
+          <div class="head"><span>Analysis</span></div>
+          <p>
             Requirements elicitation, user stories, acceptance criteria, process mapping,
             stakeholder analysis, root-cause analysis, RAID documentation, process improvement,
             incident triage
-          </dd>
-          <dt>Delivery</dt>
-          <dd>Agile/Scrum, SAFe</dd>
-          <dt>AI workflows</dt>
-          <dd>Human-in-the-loop AI, document-grounded agents, prototyping with AI coding assistants</dd>
-          <dt>Tools</dt>
-          <dd>Excel, Power BI, Microsoft 365, Copilot Studio, Power Automate, Shopify</dd>
-        </dl>
-      </div>
-      <div class="field tone">
-        <ul class="rows" style="width:min(100%,34rem)">
-          <li data-reveal>
-            <div class="head"><span>Change &amp; Transformation Consultant, FDM Group</span><span class="when">Aug 2026 to now</span></div>
-            <p>
-              Eight-week Skills Lab covering business analysis, Agile/Scrum, SAFe, Excel and Power
-              BI. I supported Computershare's Copilot hackathon (Copilot Studio workflows,
-              connectors, configurations and environments), helped with Power Automate
-              integrations, co-developed a newsletter-agent prototype, and escalated complex issues
-              to specialists.
-            </p>
-          </li>
-          <li data-reveal>
-            <div class="head"><span>Warehouse Associate / IT Superuser, Amazon, Melville NY</span><span class="when">Oct 2024 to Aug 2026</span></div>
-            <p>
-              First-line IT support for thin clients, monitors and scanners. I diagnosed incidents,
-              created tickets and escalated them, and ran daily equipment-readiness audits.
-            </p>
-          </li>
-          <li data-reveal>
-            <div class="head"><span>Area Manager Intern, Amazon, Hazleton PA</span><span class="when">Jun to Aug 2025</span></div>
-            <p>The inbound bottleneck analysis.</p>
-          </li>
-          <li data-reveal>
-            <div class="head"><span>Team Lead, Braven Accelerator</span><span class="when">Aug to Dec 2023</span></div>
-            <p>
-              Coordinated timelines, tasks, user research and the final presentation for a
-              university app redesign. The team won the Fall 2023 Capstone Challenge.
-            </p>
-          </li>
-          <li data-reveal>
-            <div class="head"><span>Founder, DvzzPins</span><span class="when">Dec 2020 to Oct 2022</span></div>
-            <p>The Shopify store.</p>
-          </li>
-        </ul>
-      </div>
+          </p>
+        </li>
+        <li data-reveal>
+          <div class="head"><span>Delivery</span></div>
+          <p>Agile/Scrum, SAFe</p>
+        </li>
+        <li data-reveal>
+          <div class="head"><span>AI workflows</span></div>
+          <p>Human-in-the-loop AI, document-grounded agents, prototyping with AI coding assistants</p>
+        </li>
+        <li data-reveal>
+          <div class="head"><span>Tools</span></div>
+          <p>Excel, Power BI, Microsoft 365, Copilot Studio, Power Automate, Shopify</p>
+        </li>
+      </ul>
 </div>
     </section>
 
-    <section class="page split contact-page" id="contact" data-page aria-label="Contact">
-<div class="inner">
-      <div class="text">
-        <h2 data-reveal>contact</h2>
-        <p class="statement lede" data-reveal>
-          I'm looking for business analyst and project delivery roles. If you have a messy problem,
-          I'd like to hear about it.
-        </p>
-        <p data-reveal>
-          <a class="big-link" href="mailto:davesal0710@gmail.com">davesal0710@gmail.com</a><br />
-          <a class="big-link" href="https://www.linkedin.com/in/davidsval">linkedin.com/in/davidsval</a>
-        </p>
-        <p class="small" data-reveal>New York</p>
-      </div>
-      <div class="portrait" data-reveal>
-        <Image src={headshot} alt="David Salazar" width={640} height={640} densities={[1, 2]} />
+    <section id="contact">
+<div class="col">
+      <h2 data-reveal>contact</h2>
+      <p class="statement" data-reveal>
+        I'm looking for business analyst and project delivery roles. If you have a messy problem, I'd
+        like to hear about it.
+      </p>
+      <div class="contact" data-reveal>
+        <Image
+          src={headshot}
+          alt="David Salazar"
+          width={288}
+          height={288}
+          densities={[1, 2]}
+        />
+        <div>
+          <p style="margin:0">
+            <a class="big" href="mailto:davesal0710@gmail.com">davesal0710@gmail.com</a><br />
+            <a class="big" href="https://www.linkedin.com/in/davidsval">linkedin.com/in/davidsval</a>
+          </p>
+          <p class="muted small" style="margin-top:0.75rem">New York</p>
+        </div>
       </div>
 </div>
     </section>
-  </main>
+  
 
   <script>
     const demo = document.querySelector('[data-demo]');
@@ -289,12 +299,5 @@ import aiImport from '../assets/tetsu-ai-import.png';
       demo.before(seg);
       show(0);
     }
-    // in-page buttons that jump to another page of the pager
-    document.querySelectorAll<HTMLElement>('[data-go]').forEach((a) =>
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-        document.querySelector<HTMLElement>(`[data-tab="${a.dataset.go}"]`)?.click();
-      })
-    );
   </script>
 </Base>
