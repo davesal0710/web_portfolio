@@ -1539,10 +1539,13 @@ body::before,
     grid-area: 1 / 1;
     margin: 0;
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
   }
   .js .stage-phone .slide.is-on {
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
   .js .stage-phone img {
     display: block;
@@ -1565,10 +1568,11 @@ body::before,
   }
   .js .stage-phone .slide {
     transform: translateY(8px);
-    transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
+    transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out), visibility 0s linear 400ms;
   }
   .js .stage-phone .slide.is-on {
     transform: none;
+    transition-delay: 0s;
   }
 }
 
@@ -1615,4 +1619,123 @@ a {
 .case-head .logo {
   border: 5px solid var(--surface);
   background: var(--surface);
+}
+
+/* Screenshot popup: warm veil, framed screen, soft controls. Native dialog, so Esc and focus work without extra code. */
+.zoomable {
+  cursor: zoom-in;
+}
+html:has(dialog.lightbox[open]) {
+  overflow: hidden;
+}
+dialog.lightbox {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+}
+dialog.lightbox::backdrop {
+  background: rgba(251, 236, 220, 0.97);
+}
+.lb-inner {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 1rem 1rem 5rem;
+}
+.lb-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 0;
+}
+.lb-img {
+  display: block;
+  max-width: min(92vw, 38rem);
+  max-height: calc(100dvh - 11rem);
+  width: auto;
+  height: auto;
+  border: 6px solid var(--surface);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+.lb-cap {
+  color: var(--muted);
+  font-size: var(--step-small);
+  text-align: center;
+}
+.lb-nav {
+  position: absolute;
+  inset: auto 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.lb-count {
+  min-width: 5rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: var(--step-small);
+  font-variant-numeric: tabular-nums;
+}
+.lb-btn,
+.lb-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--step);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 220ms var(--ease-out), transform 220ms var(--ease-out);
+}
+.lb-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+.lb-btn:active,
+.lb-close:active {
+  transform: scale(0.95);
+}
+@media (hover: hover) and (pointer: fine) {
+  .lb-btn:hover,
+  .lb-close:hover {
+    background: var(--accent-hover);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  dialog.lightbox[open] .lb-inner {
+    animation: lb-in 260ms var(--ease-out) both;
+  }
+  dialog.lightbox[open]::backdrop {
+    animation: lb-fade 260ms var(--ease-out) both;
+  }
+  @keyframes lb-in {
+    from {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+  }
+  @keyframes lb-fade {
+    from {
+      opacity: 0;
+    }
+  }
 }

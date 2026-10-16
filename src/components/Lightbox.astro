@@ -1,0 +1,88 @@
+---
+// One calm popup for every screenshot that has data-full. Native <dialog>: focus is trapped, Esc closes, and the page behind stays put.
+---
+
+<dialog class="lightbox" aria-label="Screenshot viewer">
+  <div class="lb-inner">
+    <button type="button" class="lb-close" data-lb="close" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+    </button>
+    <figure class="lb-figure">
+      <img class="lb-img" alt="" />
+      <figcaption class="lb-cap"></figcaption>
+    </figure>
+    <div class="lb-nav">
+      <button type="button" class="lb-btn" data-lb="prev" aria-label="Previous screen">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </button>
+      <span class="lb-count" aria-live="polite"></span>
+      <button type="button" class="lb-btn" data-lb="next" aria-label="Next screen">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const dlg = document.querySelector<HTMLDialogElement>('dialog.lightbox');
+  const thumbs = [...document.querySelectorAll<HTMLImageElement>('img[data-full]')];
+  if (dlg && thumbs.length) {
+    const img = dlg.querySelector<HTMLImageElement>('.lb-img')!;
+    const cap = dlg.querySelector<HTMLElement>('.lb-cap')!;
+    const count = dlg.querySelector<HTMLElement>('.lb-count')!;
+    const nav = dlg.querySelector<HTMLElement>('.lb-nav')!;
+    // one entry per distinct screen, in page order (the wide-screen stage repeats the row)
+    const seen = new Set<string>();
+    const items: { full: string; alt: string; cap: string }[] = [];
+    thumbs.forEach((t) => {
+      const full = t.dataset.full!;
+      if (seen.has(full)) return;
+      seen.add(full);
+      items.push({ full, alt: t.alt, cap: t.closest('figure')?.querySelector('figcaption')?.textContent?.trim() ?? '' });
+    });
+    nav.hidden = items.length < 2;
+    let i = 0;
+    let opener: HTMLElement | null = null;
+    const show = (n: number) => {
+      i = (n + items.length) % items.length;
+      const it = items[i];
+      img.src = it.full;
+      img.alt = it.alt;
+      cap.textContent = it.cap;
+      count.textContent = items.length > 1 ? `${i + 1} of ${items.length}` : '';
+    };
+    const open = (t: HTMLImageElement) => {
+      opener = t;
+      show(items.findIndex((x) => x.full === t.dataset.full));
+      dlg.showModal();
+    };
+    thumbs.forEach((t) => {
+      t.tabIndex = 0;
+      t.setAttribute('role', 'button');
+      t.setAttribute('aria-label', 'Enlarge: ' + (t.alt || 'screenshot'));
+      t.classList.add('zoomable');
+      t.addEventListener('click', () => open(t));
+      t.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(t); }
+      });
+    });
+    dlg.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const act = target.closest<HTMLElement>('[data-lb]')?.dataset.lb;
+      if (act === 'prev') show(i - 1);
+      else if (act === 'next') show(i + 1);
+      else if (act === 'close' || target === dlg || target.classList.contains('lb-inner')) dlg.close();
+    });
+    dlg.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(i - 1);
+      if (e.key === 'ArrowRight') show(i + 1);
+    });
+    let x0 = 0;
+    dlg.addEventListener('touchstart', (e) => { x0 = e.changedTouches[0].clientX; }, { passive: true });
+    dlg.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 50) show(dx < 0 ? i + 1 : i - 1);
+    }, { passive: true });
+    dlg.addEventListener('close', () => { opener?.focus(); });
+  }
+</script>
