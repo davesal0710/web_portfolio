@@ -1374,3 +1374,30 @@ html {
   margin-top: 1.5rem;
   border-radius: var(--radius-lg);
 }
+
+/* the import clip stays still until asked: no autoplay, no motion for people who didn't choose it */
+.case section .col > .demo-gif,
+.demo-gif {
+  margin: 1.75rem 0;
+  max-width: 20rem;
+  justify-self: start;
+}
+.demo-gif img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  margin-bottom: 0.9rem;
+}
+.demo-gif figcaption {
+  color: var(--muted);
+  font-size: var(--step-small);
+  margin-top: 0.6rem;
+  line-height: 1.35;
+}
+.demo-gif .btn {
+  border: 0;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
