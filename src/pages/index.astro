@@ -23,30 +23,34 @@ const full = {
 >
   
     <section class="hero" id="intro">
-<div class="col">
-      <div class="who" data-reveal>
-        <Image src={headshot} alt="" width={56} height={56} densities={[1, 2]} loading="eager" />
-        <p>
-          <strong>David Salazar</strong>
-          New York · open to business analyst, implementation and automation roles
+<div class="col hero-grid">
+      <div class="hero-text">
+        <h1 data-reveal>Clear requirements from messy problems.</h1>
+        <p class="hero-lead" data-reveal>
+          I do business analysis and project coordination, currently as a consultant at FDM
+          Group. I write requirements and acceptance criteria, and I build prototypes with AI and
+          check them against those requirements and tests.
         </p>
+        <div class="actions" data-reveal>
+          <a class="btn" href="/work/tetsu/">Read the Tetsu case study</a>
+          <a class="btn soft" href="/David_Salazar_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+          <a class="textlink" href="mailto:davesal0710@gmail.com">Email me</a>
+        </div>
+        <div class="who" data-reveal>
+          <Image src={headshot} alt="" width={56} height={56} densities={[1, 2]} loading="eager" />
+          <p>
+            <strong>David Salazar</strong>
+            New York · open to business analyst, implementation and automation roles
+          </p>
+        </div>
       </div>
-      <h1 data-reveal>Clear requirements from messy problems.</h1>
-      <p data-reveal style="margin-top:1.1rem">
-        I do business analysis and project coordination, currently as a consultant at FDM
-        Group. I write requirements and acceptance criteria, and I build prototypes with AI and
-        check them against those requirements and tests.
-      </p>
-      <div class="actions" data-reveal>
-        <a class="btn" href="/work/tetsu/">Read the Tetsu case study</a>
-        <a class="textlink" href="mailto:davesal0710@gmail.com">Email me</a>
-        <a class="btn soft" href="/David_Salazar_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
-      </div>
-      <a class="hero-shot" href="/work/tetsu/" data-reveal>
-        <Image src={aiImport} alt="Tetsu’s import screen: a pasted routine organized and ready to review" widths={[160, 240, 320]} sizes="9rem" loading="eager" />
-        <span>Tetsu, my workout app: paste a routine, review it, then save. Read the case study.</span>
+      <a class="hero-phone" href="/work/tetsu/" data-reveal>
+        <img src="/tetsu-import.gif" data-poster="/tetsu-import-poster.png" width="320" height="696" alt="Tetsu’s import screen: a pasted routine is organized, then shown on a review screen before anything is replaced" />
+        <span>Tetsu, my workout app. Paste a routine, review it, then save.</span>
       </a>
+</div>
 
+<div class="col hero-demo">
       <div class="demo" data-ui data-reveal>
         <p class="label muted small" style="margin:0 0 0.75rem">How I write a requirement, using Tetsu. Written for this page from the case study.</p>
         <div data-demo>
@@ -312,6 +316,8 @@ const full = {
   
 
   <script>
+    const heroClip = document.querySelector<HTMLImageElement>('.hero-phone img[data-poster]');
+    if (heroClip && matchMedia('(prefers-reduced-motion: reduce)').matches) heroClip.src = heroClip.dataset.poster ?? heroClip.src;
     const demo = document.querySelector('[data-demo]');
     if (demo) {
       const panes = [...demo.querySelectorAll<HTMLElement>('[data-pane]')];

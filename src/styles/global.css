@@ -886,36 +886,16 @@ details.fold .fold-body {
     margin-inline: auto;
   }
 
-  /* home: intro beside the demo */
+  /* home: intro beside the Tetsu clip */
   .hero {
     padding-top: clamp(2rem, 8vh, 5rem);
   }
-  .hero .col {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 28rem);
-    column-gap: 5rem;
-    align-items: start;
+  .hero .hero-grid {
+    grid-template-columns: minmax(0, 1fr) 19rem;
+    column-gap: 6rem;
   }
-  .hero .col > .who,
-  .hero .col > h1,
-  .hero .col > p,
-  .hero .col > .actions {
-    grid-column: 1;
-  }
-  .hero .col > h1 {
-    font-size: clamp(2.25rem, 1.4rem + 2vw, 3.25rem);
-    max-width: 12em;
-  }
-  .hero .col > .demo {
-    grid-column: 2;
-    grid-row: 1 / span 3;
-    margin-top: 0;
-  }
-  .hero .col > .hero-shot {
-    grid-column: 2;
-    grid-row: 4 / span 2;
-    margin-top: 0;
-    align-self: start;
+  .hero .hero-phone {
+    width: 19rem;
   }
 
   /* home: Tetsu text beside its screenshots, the rest in three columns */
@@ -1258,13 +1238,6 @@ h3,
 }
 .case-head h1 {
   font-size: clamp(2.5rem, 1.5rem + 4vw, 5rem);
-}
-
-@media (min-width: 64rem) {
-  /* the demo card is as tall as its longest pane, so extra height goes to the last row, not between the lines */
-  .hero .col {
-    grid-template-rows: auto auto auto auto 1fr;
-  }
 }
 
 /* hero: a face and a status line before the headline */
@@ -1744,34 +1717,53 @@ body {
     background: var(--step);
   }
 }
-.hero-shot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: 1rem;
-  margin-top: 2rem;
+.hero-grid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+.hero h1 {
+  font-size: clamp(2.25rem, 1.3rem + 3.2vw, 3.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  max-width: 11em;
+  margin: 0 0 1.25rem;
+}
+.hero-lead {
+  max-width: 30rem;
+  margin: 0;
+}
+.hero-text .who {
+  margin: 2rem 0 0;
+}
+.hero-phone {
+  display: block;
+  width: min(100%, 17rem);
+  justify-self: center;
   color: inherit;
   text-decoration: none;
 }
-.hero-shot img {
-  width: 8.5rem;
+.hero-phone img {
+  display: block;
+  width: 100%;
   height: auto;
-  flex-shrink: 0;
-  border: 5px solid var(--surface);
+  border: 6px solid var(--surface);
   border-radius: var(--radius-lg);
   background: var(--surface);
 }
-.hero-shot span {
-  flex: 1 1 9rem;
-  min-width: 0;
-  max-width: 15rem;
+.hero-phone span {
+  display: block;
+  margin-top: 0.7rem;
   color: var(--muted);
   font-size: var(--step-small);
   line-height: 1.4;
-  text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, var(--ink) 45%, transparent);
-  text-underline-offset: 0.2em;
-  text-decoration-thickness: 1px;
+}
+.hero-demo {
+  margin-top: 3.5rem;
+}
+.hero-demo .demo {
+  max-width: 44rem;
+  margin-top: 0;
 }
 .toc {
   display: flex;
